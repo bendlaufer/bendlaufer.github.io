@@ -4,6 +4,16 @@
 		<title>Ben Laufer</title>
 		<link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
 		<style>
+			/* Color Palette */
+			:root {
+				--bg-primary: rgb(47,81,86);      /* Dark green - main background */
+				--bg-secondary: white;            /* White - body background */
+				--text-primary: #f8f8f8;          /* Off-white - main text */
+				--text-secondary: lightblue;       /* Light blue - links and buttons */
+				--accent: orange;                  /* Orange - highlights and hover */
+				--border: #7A7A7A;                /* Gray - borders and dividers */
+			}
+
 
 			h1 {
   			font-size: 50px;
@@ -14,7 +24,7 @@
 			}
 
 			project {
-				background: rgb(47,81,86);
+				background: var(--bg-primary);
 				padding: 20px;
 				text-align: center;
 				margin-left: auto;
@@ -23,8 +33,8 @@
 			}
 
 			body {
-				background: white;
-				color: rgb(0,170,255);
+				background: var(--bg-secondary);
+				color: var(--text-secondary);
 				font-family: 'Questrial', sans-serif;
 				font-size: 20px;
 				text-align: center;
@@ -32,7 +42,7 @@
 			}
 
 			orangetext {
-				color: orange;
+				color: var(--accent);
 			}
 
 			img {
@@ -41,13 +51,13 @@
 			}
 
 			header {
-				background: rgb(47,81,86);
+				background: var(--bg-primary);
 				font-size: 20px;
 				padding: 20px;
 			}
 
 			section {
-				background: white;
+				background: var(--bg-secondary);
 				padding: 20px;
 				display: flex;
 				margin-left: auto;
@@ -55,11 +65,15 @@
 			}
 
 			switchsection {
-				background: rgb(47,81,86);
+				background: var(--bg-primary);
 				padding: 20px;
 				display: flex;
 				margin-left: auto;
 				margin-right: auto;
+				position: sticky;
+				top: 0;
+				z-index: 1000;
+				width: 100%;
 			}
 
 			text {
@@ -67,29 +81,77 @@
 				padding-left: 20px;
 			}
 
+			.publications-container {
+				background: var(--bg-primary);
+				padding: 40px 20px;
+				max-width: 900px;
+				margin: 0 auto;
+				text-align: left;
+			}
+
+			.publication-item {
+				margin-bottom: 20px;
+				padding-bottom: 15px;
+				border-bottom: 1px solid rgba(248,248,248,0.2);
+				line-height: 1.6;
+			}
+
+			.publication-item:last-child {
+				border-bottom: none;
+			}
+
+			.publication-authors {
+				font-weight: bold;
+				color: var(--text-primary);
+			}
+
+			.publication-title {
+				font-style: italic;
+				color: var(--text-primary);
+			}
+
+			.publication-venue {
+				color: var(--text-primary);
+				font-size: 16px;
+			}
+
+			.publication-links {
+				margin-top: 5px;
+			}
+
+			.publication-links a {
+				margin-right: 15px;
+				font-size: 16px;
+				color: var(--text-secondary);
+			}
+
+			.publication-venue a {
+				color: var(--text-secondary);
+			}
+
 			footer {
-				background: rgb(47,81,86);
+				background: var(--bg-primary);
 				padding: 20px;
 			}
 
 			button {
 				text-decoration: none;
-				background: rgb(47,81,86);
+				background: var(--bg-primary);
 				display: inline-block;
 				margin: auto;
 				padding: 20px;
 				font-size: 20px;
-				border: rgb(0,170,255);
-				color: lightblue; /*rgb(0,170,255);*/
+				border: var(--text-secondary);
+				color: var(--text-secondary); /*rgb(0,170,255);*/
 				text-align: center;
 				width: 300px;
 				height: auto;
-				outline:orange;
+				outline: var(--accent);
 			}
 
 			button:link {
 				text-decoration: none;
-				color: lightblue;
+				color: var(--text-secondary);
 				font-family: 'Questrial', sans-serif;
 			}
 
@@ -97,12 +159,12 @@
 			#gameContainer {}
 
 			body {
-			  background: #111;
-			  color: #f8f8f8;
+			  background: var(--bg-secondary);
+			  color: var(--text-primary);
 			}
 
 			canvas {
-			  background: #f8f8f8;
+			  background: var(--text-primary);
 			  padding: 0;
 			  margin: 0 auto;
 			  margin-bottom: 1rem;
@@ -111,23 +173,23 @@
 
 			a:link {
 				text-decoration: none;
-				color: lightblue;
+				color: var(--text-secondary);
 				font-family: 'Questrial', sans-serif;
 			}
 
 			a:visited {
 				text-decoration: none;
-				color: lightblue;
+				color: var(--text-secondary);
 			}
 
 			a:hover {
 				text-decoration: underline;
-				color: orange;
+				color: var(--accent);
 			}
 
 			a:active {
 				text-decoration: underline;
-				color: orange;
+				color: var(--accent);
 			}
 
 		</style>
@@ -249,9 +311,8 @@
 		<switchsection>
 			<button href="index.html"> <a href="index.html"><h1><orangetext><b>Ben Laufer</b></orangetext> </h1></a></button>
 				<button><a href="index.html">Home</a></button>
-				<button><a href="bio.html">Bio</a></button>
 				<button><a href='projects.html'>Projects</a></button>
-				<button><a style='color: orange' href='writing.html'>Writing</a></button>
+				<button><a style='color: var(--accent)' href='writing.html'>Writing</a></button>
 
 			<button onclick="countClicks(); flickBall();">
 					<a>Click me (for fun)</a>
@@ -270,134 +331,131 @@
 
 		</switchsection>
 
-		<section>
-			<project>
-				<header><b> Benjamin Laufer, Manish Raghavan and Solon Barocas</b>. "What Constitutes a Less Discriminatory Algorithm?" <i>ACM Conference on CS&Law (CSLAW) [oral presentation], 2025</i>. </header>
-				<a href="https://arxiv.org/abs/2412.18138">paper</a>
-				<break>
-			</project>
-		</section>
-		
-		<section>
-			<project>
-				<header><b> Benjamin Laufer, Hoda Heidari and Jon Kleinberg</b>. "Fine-tuning Games." <i>The ACM Web Conference (WWW) [oral presentation], 2024</i>. </header>
-				<a href="https://arxiv.org/pdf/2308.04399.pdf">paper</a>
-				<break>
-			</project>
-		</section>
-		
-		<section>
-			<project>
-				<header><b> Benjamin Laufer and Helen Nissenbaum</b>. "Algorithmic Displacement of Social Trust." <i>Knight First Ammendment Institute at Columbia University</i>.</header>
-				<a href="algorithmicdisplacementofsocialtrust.pdf">paper</a>
-				<break>
-			</project>
-		</section>
+		<div class="publications-container">
+			<div class="publication-item">
+				<div class="publication-authors">Chris Hays, Benjamin Laufer, Solon Barocas, Manish Raghavan</div>
+				<div class="publication-title">"Statistical Guarantees in the Search for Less Discriminatory Algorithms"</div>
+				<div class="publication-venue">Accepted at <i>CS & Law 2026</i>, under review at <i>Management Science</i>, 2025.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2512.23943" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
 
-		<section>
-			<project>
-				<header><b> Benjamin Laufer, Jon Kleinberg, Helen Nissenbaum, and Karen Levy</b>. "Strategic Evaluation." <i>ACM Conference on Equity and Access in Algorithms, Mechanisms, and Optimization (EAAMO), 2023</i>.</header>
-				<a href="https://arxiv.org/pdf/2310.03655.pdf">paper</a>
-				<break>
-			</project>
-		</section>
-		
-		<section>
-			<project>
-				<header><b> Benjamin Laufer, Tom Gilbert and Helen Nissenbaum</b>. "Optimization's Neglected Normative Commitments." <i>ACM Conference on Fairness, Accountability, and Transparency (FAccT), 2023</i>.</header>
-				<a href="https://dl.acm.org/doi/10.1145/3593013.3593976">paper</a>
-			</project>
-		</section>
-		
-		<section>
-			<project>
-				<header><b> Benjamin Laufer, Emma Pierson and Nikhil Garg</b>. "End-to-end Auditing of Decision Pipelines." <i>ICML Workshop on Responsible Decision Making in Dynamic Environments (RDMDE), 2022</i>.</header>
-				<a href = "https://responsibledecisionmaking.github.io/assets/pdf/papers/28.pdf">paper</a>
-				<br>
-			</project>
-		</section>
-		
-		<section>
-			<project>
-				<header><b> Benjamin Laufer* and Niko Grupen*</b>. "Collective Obfuscation and Crowdsourcing." <i>KDD MIS2-TrueFact and ICML DisCoML workshops, 2022</i>.</header>
-				<a href="https://arxiv.org/pdf/2208.06405.pdf">paper</a>
-				<br>
-			</project>
-		</section>
-		
-		<section>
-			<project>
-				<header><b> Benjamin Laufer, Sameer Jain, A. Feder Cooper, Jon Kleinberg, Hoda Heidari</b>. "Four Years of FAccT: A Reflexive, Mixed-Methods Analysis of Research Contributions, Shortcomings, and Future Prospects." <i>ACM Conference on Fairness, Accountability, and Transparency (FAccT), 2022</i>.</header>
-				<a href="https://dl.acm.org/doi/10.1145/3531146.3533107">paper</a>
-			</project>
-		</section>
-		
-		
-		<section>
-			<project>
-				<header><b>A. Feder Cooper, Emmanuel Moss, Benjamin Laufer, Helen Nissenbaum</b>. "Accountability in an Algorithmic Society: Relationality, Responsibility, and Robustness in Machine Learning." <i>ACM Conference on Fairness, Accountability, and Transparency (FAccT), 2022</i>.</header>
-				<a href="https://dl.acm.org/doi/abs/10.1145/3531146.3533150">paper</a>
-			</project>
-		</section>
-		
-		<section>
-			<project>
-				<header><b>Benjamin Laufer</b>. "Abandoning Criminal Risk & Recidivism." <i>NeurIPS 2020 Resistance AI Workshop</i>.</header>
-				<a href="Abandoning_Criminal_Risk_and_Recidivism camera_ready.pdf">pdf</a>
-			</project>
-		</section>
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Hamidah Oderinwale, Jon Kleinberg</div>
+				<div class="publication-title">"Anatomy of a Machine Learning Ecosystem: 2 Million Models on Hugging Face"</div>
+				<div class="publication-venue">Revision at <i>Proceedings of National Academy of Sciences (PNAS)</i>, 2025.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2508.06811" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
 
-		<section>
-			<project>
-				<header><b>Benjamin Laufer</b>. "Beyond Validity: Current Auditing Methods for Criminal Risk Assessments Do Not Consider Sequential Feedback Effects." Working paper. 2020.</header>
-				<a href="beyond_validity_preprint.pdf">pdf (preprint)</a>	
-			</project>
-		</section>
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Jon Kleinberg</div>
+				<div class="publication-title">"Measuring Rule-Following in Language Models"</div>
+				<div class="publication-venue"><i>ICML 2025 Workshop on Assessing World Models</i>, 2025.</div>
+			</div>
 
-		<section>
-			<project>
-				<header><b>Benjamin Laufer</b>. "Feedback Effects in Repeat-Use Risk Assessments." Working Paper. 2020.</header>
-				<a href="Modeling_Feedback_Effects_in_Repeat_Use_Risk_Assessments_for_website.pdf">pdf (preprint)</a>	
-			</project>
-		</section>
+			<div class="publication-item">
+				<div class="publication-authors">Tori Qiu, Benjamin Laufer, Jon Kleinberg, Hoda Heidari</div>
+				<div class="publication-title">"On the Economic Impacts of AI Openness Regulation: A Game-theoretic model of Performance and Openness Implications"</div>
+				<div class="publication-venue"><i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2025.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2507.14193" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
 
-		<section>
-			<project>
-				<header><b>Benjamin Laufer</b> and Dounan Tang. "ROI-based Task Optimization for High-Frequency E-Scooter Fleet Operations." Lime. Advised by Dounan Tang. 2020. </header>
-				<text>[awaiting permissions for release]</text>
-				<br>
-				<!--<a href="ROI_Modelling_Doc.pdf">modelling document</a>-->
-			</project>
-		</section>
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Hoda Heidari, Jon Kleinberg</div>
+				<div class="publication-title">"The Backfiring Effect of Weak AI Safety Regulation"</div>
+				<div class="publication-venue">Revision at <i>Proceedings of National Academy of Sciences (PNAS)</i>, previously appeared at <i>ACM Conference on Equity and Access in Algorithms, Mechanisms, and Optimization (EAAMO) (non-archival)</i>, 2025.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2503.20848" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
 
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Manish Raghavan, Solon Barocas</div>
+				<div class="publication-title">"What Constitutes a Less Discriminatory Algorithm?"</div>
+				<div class="publication-venue"><i>ACM CSLaw '25</i> [<b>presentation</b>], earlier versions appeared at <i>NeurIPS RegML and NeurIPS AFME workshops</i> [<b>oral spotlight</b>], 2024.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2412.18138" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
 
-		<section>
-			<project>
-				<header><b>Benjamin Laufer</b>. "Compounding Injustice: History & Prediction in Carceral Decision Making." Princeton University Senior Thesis. Advised by Miklos Racz and Eduardo Morales. Best Thesis in Urban Studies, Kenneth H. Condit Award for Scholarship and Impact. 2019.</header>
-				<a href="https://arxiv.org/abs/2005.13404">arXiv</a>
-			</project>
-		</section>
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Jon Kleinberg, Hoda Heidari</div>
+				<div class="publication-title">"Fine-Tuning Games: Bargaining and Adaptation for General-Purpose Models"</div>
+				<div class="publication-venue"><i>The Web Conference 2024</i> (WWW) [<b>oral spotlight</b>], 2024.</div>
+				<div class="publication-links"><a href="https://arxiv.org/abs/2308.04399" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
 
-		<section>
-			<project>
-				<header><b>Benjamin Laufer</b>. "On Media and Sensation." Paper advised by Thomas Y. Levin. 2019. </header>
-				<a href="media-theory-paper.pdf">pdf</a>
-			</project>
-		</section>
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Helen Nissenbaum</div>
+				<div class="publication-title">"Algorithmic Displacement of Social Trust"</div>
+				<div class="publication-venue"><i><a href="https://knightcolumbia.org/content/algorithmic-displacement-of-social-trust" target="_blank" rel="noopener noreferrer">Knight Institute</a>, Symposium and Essay Series on Algorithmic Amplification and Society</i>, 2023.</div>
+				<div class="publication-links"><a href="assets/algorithmicdisplacementofsocialtrust.pdf">paper</a></div>
+			</div>
 
-		<section>
-			<project>
-				<header><b>Benjamin Laufer</b>. "Data Analytics and Machine Learning for Environmental Protection: Targeting Air Inspections." Princeton University Junior Paper. Advised by Robert Vanderbei and Daniel Teitelbaum. 2018.</header>
-				<a href="Laufer_Benjamin_EPA_Project.pdf">pdf</a>
-			</project>
-		</section>
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Jon Kleinberg, Karen Levy, Helen Nissenbaum</div>
+				<div class="publication-title">"Strategic Evaluation: Subjects, Evaluators, and Society"</div>
+				<div class="publication-venue"><i>ACM Conference on Equity and Access in Algorithms, Mechanisms, and Optimization (<a href="https://dl.acm.org/doi/abs/10.1145/3617694.3623237" target="_blank" rel="noopener noreferrer">EAAMO</a>)</i>, 2023.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2310.03655.pdf" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
 
-		<section>
-			<project>
-				<header>Anna Dong, Benjamin Getraer, Ryan Herbert, <b>Benjamin Laufer</b>, Daniel Petticord, Maria Stahl [equal contribution]. "Controlling Horse Populations in the Western United States." Princeton University Research Project advised by Simon Levin. 2018. </header>
-				<a href="EEB324_Modeling_5-22.pdf">pdf</a>
-			</project>
-		</section>
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Thomas Gilbert, Helen Nissenbaum</div>
+				<div class="publication-title">"Optimization's Neglected Normative Commitments"</div>
+				<div class="publication-venue"><i>ACM Conference on Fairness, Accountability, and Transparency (<a href="https://facctconference.org/2023/acceptedpapers.html" target="_blank" rel="noopener noreferrer">FAccT</a>)</i>, 2023.</div>
+				<div class="publication-links"><a href="https://dl.acm.org/doi/10.1145/3593013.3593976" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Manish Raghavan, Solon Barocas</div>
+				<div class="publication-title">"Are computational interventions to advance fair lending robust to different modeling choices about the nature of lending?"</div>
+				<div class="publication-venue"><i><a href="https://www.afciworkshop.org/aft2023" target="_blank" rel="noopener noreferrer">NeurIPS AFT</a></i> workshop, 2023.</div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Emma Pierson, Nikhil Garg</div>
+				<div class="publication-title">"End-to-end Auditing for Decision Pipelines"</div>
+				<div class="publication-venue"><i>ICML Workshop on Responsible Decision Making in Dynamic Environments (<a href="https://responsibledecisionmaking.github.io" target="_blank" rel="noopener noreferrer">RDMDE</a>)</i>, 2022.</div>
+				<div class="publication-links"><a href="https://responsibledecisionmaking.github.io/assets/pdf/papers/28.pdf" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Niko Grupen</div>
+				<div class="publication-title">"Collective Obfuscation and Crowdsourcing"</div>
+				<div class="publication-venue"><i><a href="http://claws.cc.gatech.edu/mis2-truefact-kdd2022.html" target="_blank" rel="noopener noreferrer">KDD MIS2-TrueFact</a> and <a href="https://sites.google.com/nyu.edu/discoml/home?authuser=0" target="_blank" rel="noopener noreferrer">ICML DisCoML</a></i> workshops, 2022.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2208.06405.pdf" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Sameer Jain, A. Feder Cooper, Jon Kleinberg, Hoda Heidari</div>
+				<div class="publication-title">"Four Years of FAccT: A Reflexive, Mixed-Methods Analysis of Research Contributions, Shortcomings, and Future Prospects"</div>
+				<div class="publication-venue"><i>ACM Conference on Fairness, Accountability, and Transparency (<a href="https://facctconference.org/2022/acceptedpapers.html" target="_blank" rel="noopener noreferrer">FAccT</a>)</i>, 2022.</div>
+				<div class="publication-links"><a href="https://dl.acm.org/doi/10.1145/3531146.3533107" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">A. Feder Cooper, Emmanuel Moss, Benjamin Laufer, Helen Nissenbaum</div>
+				<div class="publication-title">"Accountability in an Algorithmic Society"</div>
+				<div class="publication-venue"><i>ACM Conference on Fairness, Accountability, and Transparency (<a href="https://facctconference.org/2022/acceptedpapers.html" target="_blank" rel="noopener noreferrer">FAccT</a>)</i>, 2022.</div>
+				<div class="publication-links"><a href="https://dl.acm.org/doi/abs/10.1145/3531146.3533150" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer</div>
+				<div class="publication-title">"Abandoning Criminal Risk and Recidivism: On Dangerous Goals in ML Scoring-Decision Systems"</div>
+				<div class="publication-venue"><i><a href="https://sites.google.com/view/resistance-ai-neurips-20/accepted-papers-and-media?authuser=0" target="_blank" rel="noopener noreferrer">NeurIPS Resistance AI Workshop</a></i>, 2020.</div>
+				<div class="publication-links"><a href="assets/Abandoning_Criminal_Risk_and_Recidivism camera_ready.pdf">pdf</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer</div>
+				<div class="publication-title">"Compounding Injustice: History and Prediction in Carceral Decision-Making"</div>
+				<div class="publication-venue">Undergraduate Thesis, <i>Princeton</i>, April 2019.</div>
+				<div class="publication-links"><a href="https://arxiv.org/abs/2005.13404" target="_blank" rel="noopener noreferrer">ArXiv</a> | <a href="https://dataspace.princeton.edu/handle/88435/dsp01g445ch009" target="_blank" rel="noopener noreferrer">Princeton Mudd Manuscript Library</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer</div>
+				<div class="publication-title">"Data Analytics and Machine Learning for Environmental Protection: Targeting Air Inspections"</div>
+				<div class="publication-venue">Junior Research Paper, <i>Princeton ORFE</i>, January 2018.</div>
+				<div class="publication-links"><a href="assets/Laufer_Benjamin_EPA_Project.pdf">pdf</a></div>
+			</div>
+		</div>
 
 
 		<footer> 

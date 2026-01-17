@@ -4,6 +4,15 @@
 		<title>Ben Laufer</title>
 		<link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
 		<style>
+			/* Color Palette */
+			:root {
+				--bg-primary: rgb(47,81,86);      /* Dark green - main background */
+				--bg-secondary: white;            /* White - body background */
+				--text-primary: #f8f8f8;          /* Off-white - main text */
+				--text-secondary: lightblue;       /* Light blue - links and buttons */
+				--accent: orange;                  /* Orange - highlights and hover */
+				--border: #7A7A7A;                /* Gray - borders and dividers */
+			}
 
 			h1 {
   			font-size: 50px;
@@ -14,7 +23,7 @@
 			}
 
 			project {
-				background: rgb(47,81,86);
+				background: var(--bg-primary);
 				padding: 20px;
 				text-align: center;
 				margin-left: auto;
@@ -23,8 +32,8 @@
 			}
 
 			body {
-				background: white;
-				color: rgb(0,170,255);
+				background: var(--bg-secondary);
+				color: var(--text-secondary);
 				font-family: 'Questrial', sans-serif;
 				font-size: 20px;
 				text-align: center;
@@ -32,14 +41,14 @@
 			}
 
 			orangetext {
-				color: orange;
+				color: var(--accent);
 			}
 
 			div.hr-line {
-				background: white;
+				background: var(--bg-secondary);
 			    position: relative;
 			    width: 100%;
-			    border-bottom: 1px solid #7A7A7A;
+			    border-bottom: 1px solid var(--border);
 			}
 
 			img {
@@ -52,13 +61,13 @@
 			}
 
 			header {
-				background: rgb(47,81,86);
+				background: var(--bg-primary);
 				font-size: 20px;
 				padding: 20px;
 			}
 
 			section {
-				background: rgb(47,81,86);
+				background: var(--bg-primary);
 				padding: 20px;
 				display: flex;
 				margin-left: auto;
@@ -66,36 +75,40 @@
 			}
 
 			switchsection {
-				background: rgb(47,81,86);
+				background: var(--bg-primary);
 				padding: 20px;
 				display: flex;
 				margin-left: auto;
 				margin-right: auto;
+				position: sticky;
+				top: 0;
+				z-index: 1000;
+				width: 100%;
 			}
 
 			footer {
-				background: rgb(47,81,86);
+				background: var(--bg-primary);
 				padding: 20px;
 			}
 
 			button {
 				text-decoration: none;
-				background: rgb(47,81,86);
+				background: var(--bg-primary);
 				display: inline-block;
 				margin: auto;
 				padding: 20px;
 				font-size: 20px;
-				border: rgb(0,170,255);
-				color: lightblue; /*rgb(0,170,255);*/
+				border: var(--text-secondary);
+				color: var(--text-secondary); /*rgb(0,170,255);*/
 				text-align: center;
 				width: 300px;
 				height: auto;
-				outline:orange;
+				outline: var(--accent);
 			}
 
 			button:link {
 				text-decoration: none;
-				color: lightblue;
+				color: var(--text-secondary);
 				font-family: 'Questrial', sans-serif;
 			}
 
@@ -103,12 +116,12 @@
 			#gameContainer {}
 
 			body {
-			  background: #111;
-			  color: #f8f8f8;
+			  background: var(--bg-secondary);
+			  color: var(--text-primary);
 			}
 
 			canvas {
-			  background: #f8f8f8;
+			  background: var(--text-primary);
 			  padding: 0;
 			  margin: 0 auto;
 			  margin-bottom: 1rem;
@@ -118,23 +131,23 @@
 
 			a:link {
 				text-decoration: none;
-				color: lightblue;
+				color: var(--text-secondary);
 				font-family: 'Questrial', sans-serif;
 			}
 
 			a:visited {
 				text-decoration: none;
-				color: lightblue;
+				color: var(--text-secondary);
 			}
 
 			a:hover {
 				text-decoration: underline;
-				color: orange;
+				color: var(--accent);
 			}
 
 			a:active {
 				text-decoration: underline;
-				color: orange;
+				color: var(--accent);
 			}
 
 		</style>
@@ -256,7 +269,7 @@
 		<switchsection>
 			<button href="index.html"> <a href="index.html"><h1><orangetext><b>Ben Laufer</b></orangetext> </h1></a></button>
 				<button><a href="index.html">Home</a></button>
-				<button><a style='color: orange' href="bio.html">Bio</a></button>
+				<button><a style='color: var(--accent)' href="bio.html">Bio</a></button>
 				<button><a href='projects.html'>Projects</a></button>
 				<button><a href='writing.html'>Writing</a></button>
 
@@ -280,20 +293,20 @@
 		<div class="hr-line"></div>
 
 		<section>
-			<img src="laufer-photo.jpg">
+			<img src="assets/laufer-photo.jpg">
 
 				<header>
 				<h1>
 					Bio
 				</h1>
 					<h2>
-					Benjamin Laufer is a PhD student in the School of Computing and Information Sciences at Cornell Tech, where he is advised by Helen Nissenbaum and Jon Kleinberg, and affiliated with the AI, Policy and Practice Group and the Digital Life Initiative. He is interested in data-driven algorithmic systems and their implications for the public interest. His research uses tools and methods spanning statistics, game theory, network science, and ethics. Prior to joining Cornell, Ben worked as a data scientist at Lime, where he applied machine learning to urban mobility decisions. He graduated from Princeton Unviersity with a B.S.E. in Operations Research and Financial Engineering with minors in Urban Studies and Environmental Studies.
+					Ben Laufer is a PhD candidate in the Bowers School of Computing and Information Science at Cornell Tech. He is advised by Helen Nissenbaum and Jon Kleinberg and affiliated with the AI, Policy, and Practice Group and the Digital Life Initiative. His research studies how data-driven and AI technologies behave, how they interact with people and institutions, and how they should be governed. He draws on tools from network science, game theory, statistics, and ethics, law, and policy to build models and measurements for understanding the social impacts of computing. Before Cornell, he worked as a data scientist at Lime, and he earned his B.S.E. in Operations Research and Financial Engineering from Princeton University.
 					<br>
 					<br>
-					Ben's research is supported by a LinkedIn Fellowship. He has also spent time at Microsoft Research with the Fairness, Accountabiltiy, Transparency and Ethics Group. He was named a "rising star" by Stanford in Management Science and Engineering.
+					Ben's research has been supported by a LinkedIn PhD Fellowship and a Digital Life Initiative Doctoral Fellowship. He has also spent time as a research intern at Microsoft Research with the Fairness, Accountability, Transparency, and Ethics group. He has received three “Rising Star” recognitions, most recently as a Rising Star in Data Science at Stanford.
 					<br>
 					<button>
-						<h3><a href="CV_25.pdf" target="_blank" rel="noopener noreferrer">CV</a></h3>
+						<h3><a href="assets/CV_1-12_2026.pdf" target="_blank" rel="noopener noreferrer">CV</a></h3>
 					</button>
 					</h2>
 				</header>

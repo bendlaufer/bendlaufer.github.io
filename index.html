@@ -1,142 +1,346 @@
 <!DOCTYPE html>
 <html>
 <head>
+		<meta charset="UTF-8">
 		<title>Ben Laufer</title>
+		<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial, sans-serif' font-size='40' fill='%23f5a623'%3E%3A%29%3C/text%3E%3C/svg%3E">
 		<link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
-		<style>
-
-			h1 {
-  			font-size: 50px;
+						<style>
+			:root {
+				--bg: #f4f6f5;
+				--surface: #ffffff;
+				--surface-strong: #1f5e62;
+				--ink: #0b1c20;
+				--ink-muted: #4b5c60;
+				--accent: #f5a623;
+				--accent-2: #77c4d3;
+				--border: rgba(11, 28, 32, 0.08);
+				--shadow: 0 10px 30px rgba(0,0,0,0.12);
+				--radius: 16px;
+				--header-size: clamp(1.35rem, 1.6vw + 0.9rem, 2rem);
+				--body-size: 1rem;
+				--space-1: 8px;
+				--space-2: 16px;
+				--space-3: 24px;
+				--space-4: 32px;
+				--space-5: 48px;
 			}
 
-			smallfont {
-				font-size: 10px;
-			}
-
-			project {
-				background: rgb(47,81,86);
-				padding: 20px;
-				text-align: center;
-				margin-left: auto;
-				margin-right: auto;
-
+			html {
+				scroll-behavior: smooth;
 			}
 
 			body {
-				background: white;
-				color: rgb(0,170,255);
+				background: var(--bg);
+				color: var(--ink);
 				font-family: 'Questrial', sans-serif;
-				font-size: 20px;
-				text-align: center;
+				font-size: var(--body-size);
+				line-height: 1.7;
+				text-align: left;
 				margin: 0;
 			}
 
-			orangetext {
-				color: orange;
+			h1, h2, h3, p, smallfont {
+				font-size: var(--body-size);
+				margin: 0;
 			}
 
-			img {
-				width: 50%;
-				height: 100%;
-				margin-top: auto;
-				margin-bottom: auto;
-				padding-left: 5px;
-				padding-right: 5px;
+			h1 {
+				font-size: var(--header-size);
 			}
 
-			header {
-				background: rgb(47,81,86);
-				font-size: 20px;
-				padding: 20px;
+			smallfont {
+				font-size: 0.75rem;
 			}
 
-			section {
-				background: rgb(47,81,86);
-				padding: 20px;
-				display: flex;
-				margin-left: auto;
-				margin-right: auto;
+			.section-anchor {
+				scroll-margin-top: 110px;
+			}
+
+			.page {
+				max-width: 1100px;
+				margin: 0 auto;
+				padding: var(--space-4) var(--space-3) var(--space-5);
+			}
+
+			.section-header {
+				background: var(--surface-strong);
+				color: #fff;
+				padding: var(--space-2) var(--space-3);
+				border-radius: var(--radius);
+				box-shadow: var(--shadow);
+				margin-bottom: var(--space-3);
+				text-align: center;
+				letter-spacing: 0.02em;
+			}
+
+			.section-header h1 {
+				font-size: clamp(1.2rem, 1.2vw + 0.9rem, 1.75rem);
+				line-height: 1.15;
 			}
 
 			switchsection {
-				background: rgb(47,81,86);
-				padding: 20px;
+				background: rgba(31, 94, 98, 0.9);
+				backdrop-filter: blur(8px);
+				padding: var(--space-1) var(--space-2);
 				display: flex;
-				margin-left: auto;
-				margin-right: auto;
+				align-items: center;
+				gap: var(--space-2);
+				flex-wrap: wrap;
+				position: sticky;
+				top: 0;
+				z-index: 1000;
+				box-shadow: var(--shadow);
 			}
 
-			footer {
-				background: rgb(47,81,86);
-				padding: 20px;
+			switchsection button h1 {
+				font-size: var(--header-size);
+				margin: 0;
+				line-height: 1.1;
+				color: var(--accent);
+			}
+
+			switchsection button {
+				background: transparent;
+				border: none;
+				border-radius: 999px;
+				padding: 6px 10px;
+				color: var(--accent-2);
+				transition: all 0.2s ease;
+			}
+
+			.fun-button {
+				margin-left: auto;
+			}
+
+			.nav-button {
+				font-size: 0.9rem;
+				padding: 6px 10px;
+			}
+
+			switchsection .nav-button {
+				border: 1px solid rgba(255,255,255,0.25);
+			}
+
+			switchsection .nav-button:hover {
+				border-color: rgba(255,255,255,0.6);
+			}
+
+			switchsection .nav-button:hover .nav-link {
+				color: var(--accent);
+			}
+
+			.nav-link {
+				color: var(--accent-2);
+				font-size: 0.95rem;
+			}
+
+			.nav-link.active {
+				color: var(--accent) !important;
+			}
+
+			.orangetext {
+				color: var(--accent);
+			}
+
+			a:link,
+			a:visited {
+				text-decoration: none;
+				color: var(--accent-2);
+			}
+
+			a:hover,
+			a:active {
+				text-decoration: none;
+				color: var(--accent);
 			}
 
 			div.hr-line {
-				background: white;
-			    position: relative;
-			    width: 100%;
-			    border-bottom: 1px solid #7A7A7A;
+				border-bottom: 1px solid var(--border);
+				margin: var(--space-4) 0;
 			}
 
-			button {
-				text-decoration: none;
-				background: rgb(47,81,86);
-				display: inline-block;
-				margin: auto;
-				padding: 20px;
-				font-size: 20px;
-				border: rgb(0,170,255);
-				color: lightblue; /*rgb(0,170,255);*/
-				text-align: center;
-				width: 300px;
-				height: auto;
-				outline:orange;
-			}
-
-			button:link {
-				text-decoration: none;
-				color: lightblue;
-				font-family: 'Questrial', sans-serif;
-			}
-
-
-			#gameContainer {}
-
-			body {
-			  background: #111;
-			  color: #f8f8f8;
+			#gameContainer {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-top: 6px;
 			}
 
 			canvas {
-			  background: #f8f8f8;
-			  padding: 0;
-			  margin: 0 auto;
-			  margin-bottom: 1rem;
-			  display: block;
+				background: #ffffff;
+				border-radius: 6px;
+				border: none;
+				display: block;
 			}
 
-
-			a:link {
-				text-decoration: none;
-				color: lightblue;
-				font-family: 'Questrial', sans-serif;
+			.home-bio-section {
+				background: var(--surface);
+				padding: var(--space-4);
+				display: grid;
+				grid-template-columns: 220px 1fr;
+				gap: var(--space-4);
+				border-radius: var(--radius);
+				box-shadow: var(--shadow);
+				border: 1px solid var(--border);
 			}
 
-			a:visited {
-				text-decoration: none;
-				color: lightblue;
+			.home-bio-image {
+				width: 100%;
+				border-radius: 12px;
+				box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 			}
 
-			a:hover {
-				text-decoration: underline;
-				color: orange;
+			.home-bio-content {
+				color: var(--ink);
 			}
 
-			a:active {
-				text-decoration: underline;
-				color: orange;
+			.home-bio-content h2 {
+				color: var(--ink);
+				margin-bottom: var(--space-2);
 			}
 
+			.home-bio-links {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: var(--space-2);
+			}
+
+			.home-bio-links h3 {
+				margin: 0;
+				font-weight: normal;
+			}
+
+			.home-bio-links a {
+				display: inline-flex;
+				align-items: center;
+				gap: 6px;
+			}
+
+			.separator {
+				color: var(--ink-muted);
+				user-select: none;
+			}
+
+			.project-links .separator {
+				margin: 0 var(--space-1);
+			}
+
+			.home-bio-links svg {
+				width: 16px;
+				height: 16px;
+				fill: currentColor;
+				opacity: 0.9;
+			}
+
+			.project-card {
+				background: var(--surface);
+				padding: var(--space-4);
+				border-radius: var(--radius);
+				box-shadow: var(--shadow);
+				border: 1px solid var(--border);
+				margin-bottom: var(--space-4);
+				display: grid;
+				grid-template-columns: 1fr 40%;
+				gap: var(--space-4);
+				align-items: start;
+			}
+
+			project {
+				color: var(--ink);
+				text-align: left;
+			}
+
+			project h1 {
+				font-size: var(--header-size);
+				margin-bottom: var(--space-1);
+			}
+
+			.project-authors,
+			.project-venue {
+				color: var(--ink-muted);
+				font-size: var(--body-size);
+				margin-bottom: var(--space-1);
+			}
+
+			.project-description {
+				color: var(--ink);
+				margin: var(--space-2) 0;
+			}
+
+			.project-links {
+				margin-top: var(--space-1);
+				color: var(--accent-2);
+				display: flex;
+				flex-wrap: wrap;
+				gap: var(--space-2);
+			}
+
+			.project-image {
+				width: 100%;
+				border-radius: 12px;
+				box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+				object-fit: cover;
+			}
+
+			.publications-container {
+				background: var(--surface);
+				padding: var(--space-4);
+				border-radius: var(--radius);
+				box-shadow: var(--shadow);
+				border: 1px solid var(--border);
+				color: var(--ink);
+			}
+
+			.publication-item {
+				padding: var(--space-2) 0;
+				border-bottom: 1px solid var(--border);
+			}
+
+			.publication-item:last-child {
+				border-bottom: none;
+			}
+
+			.publication-authors {
+				font-weight: bold;
+				color: var(--ink);
+			}
+
+			.publication-title {
+				font-style: italic;
+				color: var(--ink);
+			}
+
+			.publication-venue {
+				color: var(--ink-muted);
+			}
+
+			footer {
+				background: var(--surface-strong);
+				color: #fff;
+				padding: var(--space-4);
+				text-align: center;
+				margin-top: var(--space-5);
+			}
+
+			@media (max-width: 900px) {
+				switchsection {
+					justify-content: center;
+				}
+
+				.home-bio-section {
+					grid-template-columns: 1fr;
+				}
+
+				.project-card {
+					grid-template-columns: 1fr;
+				}
+
+				.project-image {
+					width: 100%;
+				}
+			}
 		</style>
 
 		<script>
@@ -146,15 +350,15 @@
 			    canvas = document.getElementById('gameCanvas')
 			    ctx = canvas.getContext('2d')
 
-			    canvas.width = 100
-			    canvas.height = 100
+			    canvas.width = 80
+			    canvas.height = 80
 
 			    gravity = 1
 			    friction = 0.99
 
 			    ball = {
 			      bounce: .99,
-			      radius: 10,
+			      radius: 8,
 			      x: canvas.width / 2,
 			      y: canvas.height / 2,
 			      velX: (Math.random() * 10 + 4) * (Math.floor(Math.random() * 2) || -1),
@@ -221,88 +425,686 @@
 
 			//}
 
-			function getClicks(){
-				console.log("Retrieving Count Start...");
-				var counts = localStorage.getItem('click-counts');
+			// Scroll-based navigation highlighting
+			function updateActiveNav() {
+				const sections = ['bio', 'projects', 'writing'];
+				const navLinks = {
+					'bio': document.getElementById('nav-bio'),
+					'projects': document.getElementById('nav-projects'),
+					'writing': document.getElementById('nav-writing')
+				};
 
-				if (counts!==null){
-			        var newClick = parseInt(counts);
-			        localStorage.setItem('click-counts', newClick);
-			    }
-			    else{
-			        localStorage.setItem('click-counts', "0");
-			    }
-			    document.getElementById("showCounts").innerHTML = counts;
+				const offset = 160; // sticky header + breathing room
+				const scrollPos = window.scrollY + offset;
+
+				// Build ordered section tops
+				const sectionTops = sections.map(section => {
+					const el = document.getElementById(section);
+					if (!el) return { section, top: Infinity };
+					const rect = el.getBoundingClientRect();
+					return { section, top: rect.top + window.scrollY };
+				});
+
+				// Find the last section whose top is above scrollPos
+				let currentSection = sectionTops[0]?.section || '';
+				for (let i = 0; i < sectionTops.length; i++) {
+					if (scrollPos >= sectionTops[i].top) {
+						currentSection = sectionTops[i].section;
+					}
+				}
+
+				// Update active states - set to orange for active, default color for others
+				Object.keys(navLinks).forEach(key => {
+					if (navLinks[key]) {
+						if (key === currentSection) {
+							navLinks[key].classList.add('active');
+							navLinks[key].style.color = 'var(--accent)';
+						} else {
+							navLinks[key].classList.remove('active');
+							navLinks[key].style.color = 'var(--text-secondary)';
+						}
+					}
+				});
 			}
 
-			function countClicks(){
-			    console.log("Counting Start...");
-			    var counts = localStorage.getItem('click-counts');
-			    if (counts!==null){
-			        var newClick = parseInt(counts) + 1;
-			        localStorage.setItem('click-counts', newClick);
-			    }
-			    else{
-			        localStorage.setItem('click-counts', "1");
-			    }
-			   document.getElementById("showCounts").innerHTML = localStorage.getItem('click-counts');;
-			 }
+			window.addEventListener('scroll', updateActiveNav);
+			window.addEventListener('load', function() {
+				updateActiveNav();
+				// Set initial state - Bio should be active at top
+				const navBio = document.getElementById('nav-bio');
+				if (navBio && window.scrollY < 200) {
+					navBio.style.color = 'var(--accent)';
+				}
+			});
 
 		</script>
 
 	</head>
-	<body onload="getClicks()">
+	<body>
 
 		<switchsection>
-			<button href="index.html"> <a href="index.html"><h1><orangetext><b>Ben Laufer</b></orangetext> </h1></a></button>
-				<button><a style='color: orange' href="index.html">Home</a></button>
-				<button><a href="bio.html">Bio</a></button>
-				<button><a href='projects.html'>Projects</a></button>
-				<button><a href='writing.html'>Writing</a></button>
+			<button href="index.html"> <a href="#bio"><h1><orangetext><b>Ben Laufer</b></orangetext> </h1></a></button>
+				<button class="nav-button"><a class="nav-link" id="nav-bio" href="#bio">Bio</a></button>
+				<button class="nav-button"><a class="nav-link" id="nav-projects" href='#projects'>Projects</a></button>
+				<button class="nav-button"><a class="nav-link" id="nav-writing" href='#writing'>Writing</a></button>
+				<button class="nav-button"><a class="nav-link" href="assets/CV_1-12_2026.pdf" target="_blank" rel="noopener noreferrer">CV</a></button>
 
-			<button onclick="countClicks(); flickBall();">
+			<button class="fun-button" onclick="flickBall();">
 					<a>Click me (for fun)</a>
 					<br>
-	   				<smallfont>
-						<span id="showCounts"></span>
-					</smallfont>
 					<div id="gameContainer">
 			  			<canvas
 			     		id="gameCanvas"
-			     	width="100"
-			     	height="100"
-			  		/>
+			     		width="80"
+			     		height="80"
+			     	></canvas>
 					</div>
 			</button>
 
 		</switchsection>
 
+		<main class="page">
+		<div id="bio" class="section-anchor section-header">
+			<h1>Bio</h1>
+		</div>
+		<div class="home-bio-section">
+			<img src="assets/laufer-photo.jpg" class="home-bio-image" alt="Benjamin Laufer">
+			<div class="home-bio-content">
+				<h2>
+					Ben Laufer is a PhD candidate in the Bowers School of Computing and Information Science at Cornell Tech. He is advised by Helen Nissenbaum and Jon Kleinberg and affiliated with the <a href="https://aipp.cis.cornell.edu/people/" target="_blank" rel="noopener noreferrer">AI, Policy, and Practice Group</a> and the <a href="https://dli.tech.cornell.edu/people" target="_blank" rel="noopener noreferrer">Digital Life Initiative (DLI)</a>. His research studies how data-driven and AI technologies behave, how they interact with people and institutions, and how they should be governed. He draws on tools from network science, game theory, statistics, and ethics, law, and policy to build models and measurements for understanding the social impacts of computing. Before Cornell, he worked as a data scientist at <a href = "https://www.lime.com/" target="_blank" rel="noopener noreferrer">Lime</a>, and he earned his B.S.E. in Operations Research and Financial Engineering from Princeton University.
+					<br>
+					<br>
+					Ben's research has been supported by a LinkedIn PhD Fellowship and a DLI Doctoral Fellowship. He has also spent time as a research intern at Microsoft Research with the <a href="https://www.microsoft.com/en-us/research/theme/fate/" target="_blank" rel="noopener noreferrer">Fairness, Accountability, Transparency, and Ethics in AI</a> group. He has received three “Rising Star” recognitions, most recently as a Rising Star in Data Science at Stanford.
+					<br>
+				</h2>
+				<div class="home-bio-links">
+					<h3><a href="https://www.linkedin.com/in/benjamin-laufer/" target="_blank" rel="noopener noreferrer">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 20.4h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.7-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.1zM5.3 7.4c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm1.8 13H3.5V9h3.6v11.4z"/></svg>
+						LinkedIn
+					</a></h3>
+					<span class="separator">•</span>
+					<h3><a href="https://twitter.com/BenDLaufer" target="_blank" rel="noopener noreferrer">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.2 7.2c0 .2 0 .3 0 .5 0 5.2-4 11.2-11.2 11.2-2.2 0-4.2-.6-5.9-1.8h.8c1.8 0 3.4-.6 4.7-1.6-1.7 0-3.1-1.1-3.6-2.6.2 0 .4.1.7.1.3 0 .6 0 .9-.1-1.8-.4-3.2-2-3.2-3.9v-.1c.5.3 1.2.5 1.8.5-1.1-.7-1.8-1.8-1.8-3.1 0-.7.2-1.3.5-1.8 2 2.4 4.9 4 8.2 4.2-.1-.3-.1-.6-.1-.9 0-2.1 1.7-3.8 3.8-3.8 1.1 0 2.1.5 2.8 1.2.9-.2 1.7-.5 2.5-.9-.3.9-.9 1.6-1.7 2.1.8-.1 1.5-.3 2.2-.6-.5.8-1.1 1.5-1.8 2z"/></svg>
+						Twitter
+					</a></h3>
+					<span class="separator">•</span>
+					<h3><a href="https://github.com/bendlaufer" target="_blank" rel="noopener noreferrer">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.6 2.9 8.5 6.9 9.9.5.1.7-.2.7-.5v-1.9c-2.8.6-3.4-1.2-3.4-1.2-.5-1.3-1.2-1.7-1.2-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.6 1.8 2.8 1.3.1-.7.4-1.1.7-1.3-2.2-.3-4.5-1.1-4.5-4.9 0-1.1.4-2.1 1-2.8-.1-.2-.4-1.2.1-2.5 0 0 .8-.3 2.7 1 .8-.2 1.7-.3 2.6-.3s1.8.1 2.6.3c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.5.6.7 1 1.7 1 2.8 0 3.8-2.3 4.6-4.5 4.9.4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5 4-1.4 6.9-5.3 6.9-9.9C22 6.6 17.5 2 12 2z"/></svg>
+						GitHub
+					</a></h3>
+					<span class="separator">•</span>
+					<h3><a href="https://scholar.google.com/citations?user=4tEgD8QAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 6-10 6L2 9l10-6zm0 9.2L18.5 9 12 5.8 5.5 9 12 12.2zM4 12.5l8 4.5 8-4.5v2.3l-8 4.5-8-4.5v-2.3z"/></svg>
+						Google Scholar
+					</a></h3>
+					<span class="separator">•</span>
+					<h3><a href="assets/CV_1-12_2026.pdf" target="_blank" rel="noopener noreferrer">
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM7.5 12h9v1.5h-9V12zm0 3h9v1.5h-9V15zm0-6h6v1.5h-6V9z"/></svg>
+						CV
+					</a></h3>
+				</div>
+			</div>
+		</div>
+
 		<div class="hr-line"></div>
 
-		<section>
-			<img src="photo-profile.jpg">
-			<header>
-				<h1>
-					Hello! Welcome to my website.<!--My interests-->
-				</h1>
-					<h2>
-					<!--
-					Mathematics, artificial intelligence, cities, the Internet, governance, computational social science, climate change, operations research, media, science and technology studies, ecology, computers, mobility, ability, decarceration, democracy, lending, capital, surveillance, architecture, Jewish studies, queer studies, oil painting, pottery, photography, embroidery, backpacking, plants, cycling.
-					-->
-					<div></div>
-			<button>
-				<h3><a href="https://www.linkedin.com/in/benjamin-laufer/" target="_blank" rel="noopener noreferrer">Linkedin</a></h3>
-				<h3><a href="https://twitter.com/BenDLaufer" target="_blank" rel="noopener noreferrer">Twitter</a></h3>
-				<h3><a href="https://github.com/bendlaufer" target="_blank" rel="noopener noreferrer">GitHub</a></h3>
-				<h3><a href="https://scholar.google.com/citations?user=4tEgD8QAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer">Scholar</a></h3>
-				<h3><a href="CV_25.pdf" target="_blank" rel="noopener noreferrer">CV</a></h3>
-			</button>
+		<div id="projects" class="section-anchor section-header">
+			<h1>Projects</h1>
+		</div>
 
-					</h2>
-				</header>
+		<!-- NEW PROJECT ENTRY: Anatomy of a Machine Learning Ecosystem -->
+		<section class="project-card">
+			<project>
+				<h1>Anatomy of a Machine Learning Ecosystem</h1>
+				<div class="project-authors">with Hamidah Oderinwale and Jon Kleinberg</div>
+
+				<div class="project-description">
+					Modern AI development often looks less like single-model engineering and more like an ecosystem: models are adapted, remixed, and fine-tuned into sprawling “family trees.” We analyze 1.86 million Hugging Face models and map fine-tuning lineages at ecosystem scale, then use an evolutionary-biology lens to measure trait inheritance, “genetic” similarity in metadata/model cards, and directed mutation over time. Our observations reveal ecosystem dynamics over model licenses, documentation practices, language support, and more.
+				</div>
+
+				<div class="project-links">
+					<a href="https://arxiv.org/pdf/2508.06811" target="_blank" rel="noopener noreferrer">Paper</a>
+					<span class="separator">•</span>
+					<a href="https://bendlaufer.github.io/ai-ecosystem-dashboard/" target="_blank" rel="noopener noreferrer">AI Ecosystem Dashboard</a>
+				</div>
+			</project>
+			<img class="project-image" src="assets/250th_largest_subgraph_optimized.gif">
 		</section>
 
-		<footer> 
+		<div class="hr-line"></div>
+
+		<!-- NEW PROJECT ENTRY: AI Safety Regulation -->
+		<section class="project-card">
+			<project>
+				<h1>AI Safety Regulation</h1>
+				<div class="project-authors">with Jon Kleinberg and Hoda Heidari</div>
+
+				<div class="project-description">
+					How should safety rules for AI be designed when we can’t easily observe the consequences in advance? We build a strategic model of an AI development chain, where a regulator sets minimum safety standards and penalties, and the technology trades off safety and performance. When we analyze the model, we find that weak regulation focused mainly on downstream specialists can backfire and reduce safety, while stronger, well-placed regulation can act as a commitment device that improves both safety and performance, sometimes even benefiting all parties relative to no regulation.
+				</div>
+
+				<div class="project-links">
+					<a href="https://arxiv.org/pdf/2503.20848" target="_blank" rel="noopener noreferrer">Paper</a>
+				</div>
+			</project>
+			<img class="project-image" src="assets/backfiring-banner.png">
+		</section>
+
+		<div class="hr-line"></div>
+
+		<!-- NEW PROJECT ENTRY: Modelling AI Openness -->
+		<section class="project-card">
+			<project>
+				<h1>Modelling AI Openness</h1>
+				<div class="project-authors">with Tori Qiu, Hoda Heidari, and Jon Kleinberg</div>
+
+				<div class="project-description">
+					Policy regimes like the EU AI Act incentivize “open-source” AI models, but the operational definition of openness is still contested, and the incentives can be subtle. We model how a regulator’s openness standard shapes the behavior of a generalist who decides how to release a foundation model and a specialist who fine-tunes it for downstream use. The results characterize equilibria under different open-source thresholds and penalties, clarifying when each lever meaningfully changes release strategies. The broader goal is to offer a theoretical foundation for designing openness rules that align economic incentives with governance goals.
+				</div>
+				<div class="project-extra">
+					Published at NeurIPS
+				</div>
+				<div class="project-links">
+					<a href="https://arxiv.org/pdf/2507.14193" target="_blank" rel="noopener noreferrer">Paper</a>
+				</div>
+
+			</project>
+			<img class="project-image" src="assets/openness-banner.png">
+		</section>
+
+		<div class="hr-line"></div>
+
+		<!-- NEW PROJECT ENTRY: Mathematical Foundations for Responsible AI -->
+		<section class="project-card">
+			<project>
+				<h1>Mathematical Foundations for Responsible AI</h1>
+				<div class="project-authors">Ongoing work with Jon Kleinberg</div>
+
+				<div class="project-description">
+					Many responsible AI goals can be framed as rule-following: obeying grammatical constraints, honoring safety filters, or avoiding toxic outputs. We introduce a principled framework for evaluating rule compliance in language models for rules expressible as deterministic finite automata (DFAs). The core idea is an epsilon–delta notion of compliance—models should behave similarly on different prefixes that correspond to the same DFA state, yet meaningfully distinguish prefixes that correspond to different states. We operationalize this by defining ``Myhill–Nerode Divergence,'' and we validate the framework experimentally by training transformers on synthetic languages—opening the door to extensions beyond regular languages and to more reliable evaluation and control.
+				</div>
+
+				<div class="project-links">
+					<a href="https://openreview.net/pdf?id=JjhpELEtCG" target="_blank" rel="noopener noreferrer">Workshop paper</a>
+				</div>
+
+			</project>
+			<img class="project-image" src="assets/responsible-ai-foundations-banner.png">
+		</section>
+
+		<div class="hr-line"></div>
+
+		<!-- NEW PROJECT ENTRY: Less Discriminatory Algorithms -->
+		<section class="project-card">
+			<project>
+				<h1>Less Discriminatory Algorithms</h1>
+				<div class="project-authors">with Solon Barocas and Manish Raghavan</div>
+
+				<div class="project-description">
+					Disparate impact doctrine gives the law a powerful handle on discriminatory algorithmic decisions, but turning its “less discriminatory alternative” concept into something operational raises hard questions. In this project, we formalize what it means to search for alternative models that reduce disparities while meeting the same business needs, and we surface fundamental limits of purely quantitative definitions when held-out data is unavailable. Our conclusion is constructive: workable standards must incorporate notions of “reasonableness,” and (despite real constraints) proactive search for candidate alternatives can be feasible in a formal sense, giving firms and plaintiffs a shared framework for identifying better models.
+				</div>
+
+				<div class="project-links">
+					<a href="https://arxiv.org/pdf/2412.18138" target="_blank" rel="noopener noreferrer">Paper</a>
+				</div>
+			</project>
+			<img class="project-image" src="assets/lda-banner.png">
+		</section>
+
+		<div class="hr-line"></div>
+		
+		<section class="project-card">
+				<project>
+					<h1>Fine-Tuning Games</h1>
+					<div class="project-authors">with Jon Kleinberg and Hoda Heidari</div>
+					
+					<div class="project-description">There is palpable excitement about AI models that are trained, supposedly for “general purpose.” But in order for these technologies to reach the market, they must first be tweaked and fine-tuned for particular, domain-specific use. In this project, we put forward a model of this adaptation process, highlighting the latent strategic dynamics that arise when one entity builds a general technology that other entities may tune and specialize. Our analysis suggests how some domains will or won’t adapt a general-purpose model. Depending on the cost of investment, a domain might either “abstain,” “contribute,” or “free-ride.”</div>
+					<div class="project-links"><a href="https://arxiv.org/pdf/2308.04399.pdf" target="_blank" rel="noopener noreferrer">Paper</a></div>
+				</project>
+				<img class="project-image" src="assets/fine-tuning-gameplay-3.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+		
+		<section class="project-card">
+				<project>
+					<h1>Algorithmic Amplification</h1>
+					<div class="project-authors">with Helen Nissenbaum</div>
+					<div class="project-venue">Published in a <a href="https://knightcolumbia.org/events/optimizing-for-what-algorithmic-amplification-and-society#:~:text=The%20symposium%2C%20“Optimizing%20for%20What,at%20Columbia%20University%20and%20online." target="_blank" rel="noopener noreferrer">Knight First Ammendment Institute Essay Series</a></div>
+					<div class="project-description">A handful of technology companies increasingly control the audiences reached by posts and content on the internet. This reality may create grave problems and leave our society acutely vulnerable. [Image credit: Daniel Herzberg]</div>
+					<div class="project-links"><a href="https://knightcolumbia.org/content/algorithmic-displacement-of-social-trust" target="_blank" rel="noopener noreferrer">Paper</a> <span class="separator">•</span> <a href="https://www.youtube.com/live/hovy4qS0tbE?feature=share&t=19352" target="_blank" rel="noopener noreferrer">Video</a></div>
+				</project>
+				<img class="project-image" src="assets/a3884ir1041_webres.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+		
+		<section class="project-card">
+				<project>
+					<h1>Optimization's Neglected Normative Commitments</h1>
+					<div class="project-authors">with Tom Gilbert and Helen Nissenbaum</div>
+					<div class="project-venue">Accepted at <a href="https://facctconference.org/2023/acceptedpapers" target="_blank" rel="noopener noreferrer">2023 ACM Conference on Fairness, Accountability, and Transparency (FAccT)</a></div>
+					<div class="project-description">Optimization is offered as a decision-aid to resolve high-stakes, real-world decisions. In this work, we dissect the normative assumptions and commitments that can be implicit in the use of optimization. We point to a number of neglected problem cases and pitfalls that can and do arise.</div>
+					<div class="project-links"><a href="https://arxiv.org/pdf/2305.17465.pdf" target="_blank" rel="noopener noreferrer">Paper</a> <span class="separator">•</span> <a href="https://youtu.be/GLKhsrLXvdI?t=455" target="_blank" rel="noopener noreferrer">Video</a></div>
+				</project>
+				<img class="project-image" src="assets/Latest-Optimization-Lifecycle-website.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+		
+		<section class="project-card">
+				<project>
+					<h1>Equity in City Services</h1>
+					<div class="project-authors">with Nikhil Garg and Emma Pierson</div>
+					<div class="project-venue">Early work accepted to <a href="https://responsibledecisionmaking.github.io" target="_blank" rel="noopener noreferrer">2022 ICML Workshop on Responsible Decision-Making in Dynamic Environments</a></div>
+					<div class="project-description">Every day, cities need to allocate resources and respond to resident needs. They aim to do so efficiently and equitably. Through a partnership with New York City’s Department of Parks and Recreations, we develop methods to test and evaluate whether the city is responding to requests effectively.</div>
+					<div class="project-links"><a href="https://responsibledecisionmaking.github.io/assets/pdf/papers/28.pdf" target="_blank" rel="noopener noreferrer">Workshop paper</a> <span class="separator">•</span> <a href="https://drive.google.com/file/d/1rPWNO5Bohoi3-AsBBuxF_jbo5s2KaqHY/view" target="_blank" rel="noopener noreferrer">Video</a> <span class="separator">•</span> <a href="https://responsibledecisionmaking.github.io/assets/poster/28.pdf" target="_blank" rel="noopener noreferrer">Poster</a></div>
+				</project>
+				<img class="project-image" src="assets/Tree-Pipeline-5-15-2022.jpg">
+			</section>
+				
+		<div class="hr-line"></div>
+		
+		<section class="project-card">
+				<project>
+					<h1>Four Years of FAccT</h1>
+					<div class="project-authors">with Sameer Jain, A. Feder Cooper, Jon Kleinberg, and Hoda Heidari</div>
+					<div class="project-venue">Accepted to <a href="https://facctconference.org/2022/index.html" target="_blank" rel="noopener noreferrer">2022 ACM Conference on Fairness, Accountability, and Transparency (FAccT)</a></div>
+					<div class="project-description">How can community members in a new scholarly field critically analyze their own research directions, shortcomings, and future prospects? In this work, our team uses reflexive, participatory mixed-methods to understand the borgeoning research topic known as Fairness, Accountability, and Transparency for Socio-technical Systems.</div>
+					<div class="project-links"><a href="https://dl.acm.org/doi/10.1145/3531146.3533107" target="_blank" rel="noopener noreferrer">Paper</a> <span class="separator">•</span> <a href="https://www.youtube.com/watch?v=qXRgORPkC2Y" target="_blank" rel="noopener noreferrer">Video</a></div>
+				</project>
+				<img class="project-image" src="assets/S2ORC-2.png">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Accountability in an Algorithmic Society</h1>
+					<div class="project-authors">with A. Feder Cooper, Emmanuel Moss, and Helen Nissenbaum</div>
+					<div class="project-venue">Accepted to <a href="https://facctconference.org/2022/index.html" target="_blank" rel="noopener noreferrer">2022 ACM Conference on Fairness, Accountability, and Transparency (FAccT)</a></div>
+					<div class="project-description">Artificial intelligence and machine learning technologies make it difficult to establish accountability. In a new paper, we discuss why accountability is important, which barriers exist, and what we can do about it.</div>
+					<div class="project-links"><a href="https://dl.acm.org/doi/abs/10.1145/3531146.3533150" target="_blank" rel="noopener noreferrer">Paper</a></div>
+				</project>
+				<img class="project-image" src="assets/accountability_abstract.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>AI Governance Goals</h1>
+					<div class="project-authors">Personal Project</div>
+					<div class="project-venue">Accepted to <a href="https://sites.google.com/view/resistance-ai-neurips-20/home?authuser=0" target="_blank" rel="noopener noreferrer">NeurIPS Resistance AI Workshop</a></div>
+					<div class="project-description">High-impact machine learning algorithms, including algorithmic risk-assessments, are trained to predict or achieve some quantifiable metric. Examples include lowering criminal risk scores and recidivism rates. Are these goals the right goals?</div>
+					<div class="project-links"><a href="assets/Abandoning_Criminal_Risk_and_Recidivism camera_ready.pdf">Paper</a> <span class="separator">•</span> <a href="https://sites.google.com/view/resistance-ai-neurips-20/accepted-papers-and-media?authuser=0" target="_blank" rel="noopener noreferrer">Announcement</a> <span class="separator">•</span> <a href="assets/NeurIPS Resistance AI Poster.pdf">Poster</a></div>
+				</project>
+				<img class="project-image" src="assets/abandoning_risk_abstract.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Computer Vision for Helmet Detection</h1>
+					<div class="project-authors">With Bohan Zhang, Jianfeng Hu, Nick Dulchin, Adrian Luan, Renjing Yin and Kunmiao Yang @ Lime</div>
+					
+					<div class="project-description">Bike, scooter and moped sharing companies' biggest challenge is rider safety in car-dominated cities. To encourage riders to wear helmets, we built a computer vision model that can detect whether a rider is wearing a helmet in real time. We can use this feature to motivate helmet-wearing through discounts, the <a href="https://en.wikipedia.org/wiki/Nudge_(book)" target="_blank" rel="noopener noreferrer">nudge</a> effect, or strict requirement (in certain markets). We scraped images from Google, built a Convolutional Neural Network (CNN) using transferred learning with <a href="https://arxiv.org/abs/2004.10934" target="_blank" rel="noopener noreferrer">YOLOv4</a>, and designed and implemented the UI for the Lime app. The model's classification accuracy on a test set was 97.55%.
+				<br>
+				<br>
+				1st place winner in Lime's company-wide Hackathon, December 2020.</div>
+					<div class="project-links"><a href='https://www.youtube.com/watch?v=W3BrwJ6tAvU' target="_blank" rel="noopener noreferrer">Demo video</a></div>
+				</project>
+				<img class="project-image" src="assets/helmet_detection.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+		
+		<section class="project-card">
+				<project>
+					<h1>Bike and Scooter Fleet Optimization</h1>
+					<div class="project-authors">Project lifted Lime's overall [revenue-task cost] by an estimated 3.9%.</div>
+					<div class="project-venue">Project advised by Dounan Tang @ Lime</div>
+					<div class="project-description">Lightweight dockless vehicles are deployed at full battery in the highest-demand locations. Throughout the day, trips bring them to a lower-trip-potential state. When and where should Lime pick up vehicles to complete charging and rebalancing tasks?</div>
+				</project>
+				<img class="project-image" src="assets/autocreation_image1.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Feedback Effects in Repeated Criminal Decisions</h1>
+					<div class="project-authors">Research Advised by Miklos Racz @ Princeton</div>
+					
+					<div class="project-description">Algorithmic risk assessment tools are widely used in the United States today to assist pre-trial and sentencing decisions. Current auditing methods are limited in scope, do not have standardized procedures, and (importantly) ignore feedback effects that arise from repeated decision-making. How do we create accountability?</div>
+					<div class="project-links"><a href="assets/beyond_validity_preprint.pdf">Conference Paper (preprint). Under Review, Conference on Fairness, Accountability, and Transparency (FAccT '21). 2021.</a> <span class="separator">•</span> <a href="assets/Modeling_Feedback_Effects_in_Repeat_Use_Risk_Assessments_for_website.pdf">Workshop Paper (preprint)</a> <span class="separator">•</span> <a href="https://arxiv.org/abs/2011.14075" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+				</project>
+				<img class="project-image" src="assets/FAccT_image.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Swappable Battery Technology for E-vehicle Sharing Systems</h1>
+					
+					<div class="project-venue">Ongoing work with Lei Xu and Jeh Lokhande @ Lime</div>
+					<div class="project-description">Lime recently launched their first electric vehicles with swappable batteries, so that people do not have to bring vehicles to power sources in order to charge them. How much closer will this technology bring us to zero-carbon travel?</div>
+					<div class="project-links"><a href="https://www.li.me/second-street/lime-announces-new-paris-swappable-battery-pilot-at-station-f-to-advance-sustainability-of-electric-scooters">Announcement</a> <span class="separator">•</span> <a href="https://www.wired.com/story/lime-scooter-gen3-design/" target="_blank" rel="noopener noreferrer">Design Article</a></div>
+				</project>
+				<img class="project-image" src="assets/swappable_battery.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Automate Lime's A/B Tests</h1>
+					
+					<div class="project-venue">with Tristan Taru @ Lime</div>
+					<div class="project-description">Supporting randomized A/B tests is fun but the work gets repetitve. I created an automated tool that performs relevant statistical hypothesis tests and reports treatment effects for a number of metrics. The tool supports randomized A/B tests on the vehicle, user, juicer, and switchback (region-day) levels. This was a "10x" project - it enabled much more experiment support and allowed local teams to launch their own experiments.</div>
+					
+				</project>
+				<img class="project-image" src="assets/auto_experiment_dashboard.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Lime's Experimentation Grand Strategy</h1>
+					
+					<div class="project-venue">with Kamya Jaggadish, Tristan Taru, Dounan Tang, Jeh Lokhande, and Siyi Luo @ Lime</div>
+					<div class="project-description">To A/B or not to A/B? Lime supports hundreds of randomized A/B tests. It also supports causal impact studies and offline analyses when A/B tests are improper. I helped create briefs on how to design experiments and how to report and interpret experiment results.</div>
+					<div class="project-links"><a href="https://medium.com/lime-eng/experimentation-analysis-at-lime-bee846d62dd" target="_blank" rel="noopener noreferrer">Article</a></div>
+				</project>
+				<img class="project-image" src="assets/Lime_Experiment_image.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>COVID Behind Bars Project</h1>
+					
+					<div class="project-venue">With Ishan Nagpal, Theresa Chang, and Sharon Dolovich @ UCLA COVID Behind Bars Data Project</div>
+					<div class="project-description">People who spend time in Immigration Detention Facilities are becoming infected with COVID-19. ICE reports case and death counts, but also has transferred or released people with the infection. With UCLA's COVID Behind Bars Research Group, I worked to combine scraped ICE counts with transfer and release information, and systematically report these numbers for open-source research.</div>
+					<div class="project-links"><a href="https://law.ucla.edu/academics/centers/criminal-justice-program/ucla-covid-19-behind-bars-data-project" target="_blank" rel="noopener noreferrer">Project Website</a></div>
+				</project>
+				<img class="project-image" src="assets/COVID_behind_bars.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Computer Vision for Parking Compliance</h1>
+					
+					<div class="project-venue">With Andrew Xia and Yi Su @ Lime</div>
+					<div class="project-description">When riders finish a ride or employees deploy a fresh scooter, they take a photo of the parking job. Cities need proper vehicle parking so that scooters are not in pedestrians' way. Using our giant photo dataset, we trained and deployed a machine learning model (CNN) to identify improper parking.</div>
+					<div class="project-links"><a href="https://medium.com/lime-eng/using-computer-vision-to-evaluate-scooter-parking-9979a1c3d685" target="_blank" rel="noopener noreferrer">Article</a></div>
+				</project>
+				<img class="project-image" src="assets/parking_compliance_image.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Bike and Scooter Demand Forecasting</h1>
+					
+					<div class="project-venue">Project Advised by Dounan Tang @ Lime</div>
+					<div class="project-description">Most models at Lime use region-wide, 3-week historical averages to estimate a vehicle's revenue for the next day. We can reduce error by training an ML model with a few additional pieces of information (weather, vehicle model, seasonal trend, location, and auto-regressive terms).</div>
+					
+				</project>
+				<img class="project-image" src="assets/demand_forecasting_lime.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>When Twitter Trends Trend: Self-Referential Topics and Internet Virality</h1>
+					
+					<div class="project-venue">Personal project</div>
+					<div class="project-description">Amid widespread BLM protests in 2020, many took to social media for "Blackout Tuesday" - a day where they posted only a <a href="https://www.theguardian.com/us-news/2020/jun/02/blackout-tuesday-dominates-social-media-millions-show-solidarity-george-floyd" target="_blank" rel="noopener noreferrer">black square</a>. This event spurred significant debate not about any underlying political issue but about the squares themselves. A defining feature of the Internet is its self-referentiality. When are Twitter trends about events, and when do they become about the fact of their own trending status? I am getting familiar with the Twitter API using this topic as my guide.</div>
+					
+				</project>
+				<img class="project-image" src="assets/when_twitter_trends_trend_data_visual.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Compounding Injustice: History & Prediction in Carceral Decision Making</h1>
+					
+					<div class="project-venue">Senior Thesis Advised by Miklos Racz and Eduardo Morales @ Princeton</div>
+					<div class="project-description">Senior thesis project at Princeton. I wrote on pre-trial and sentencing decisions in the U.S. criminal legal system. I used a combination of an original dataset (court dockets scraped from the Philadelphia court system), modelling techniques, and critical analysis to explore compounding feedback effects in the criminal decision process. The work won three graduation honors: 
+				<br>
+				(1) Best undergraduate thesis in Urban Studies [<a href="https://urbanstudies.princeton.edu/2019_URB_Thesis_Prize_Award.pdf" target="_blank" rel="noopener noreferrer">announcement1</a>, <a href="https://orfe.princeton.edu/news/orfe-graduate-benjamin-laufer-19-receives-urban-studies-thesis-prize-award" target="_blank" rel="noopener noreferrer">announcement2</a>]
+				<br>
+				(2) Kenneth H. Condit Graduation Prize for Excellence in Scholarship and Community Impact [<a href="https://orfe.princeton.edu/undergraduate/awards" target="_blank" rel="noopener noreferrer">announcement</a>]
+				<br>
+				(3) Departmental Distinction</div>
+					<div class="project-links"><a href="https://arxiv.org/abs/2005.13404" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+				</project>
+				<img class="project-image" src="assets/Compounding_Injustice_Map.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Ruminations on Media & Sensation</h1>
+					
+					<div class="project-venue">Project stemming from coursework, advised by Thomas Y. Levin @ Princeton</div>
+					<div class="project-description">Gelato shaped like a flower. Slime videos. ASMR. How is the Internet changing the way we sense?</div>
+					<div class="project-links"><a href="assets/media-theory-paper.pdf">Paper</a></div>
+				</project>
+				<img class="project-image" src="assets/media_theory.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Recursion and Gothic Architecture</h1>
+					
+					<div class="project-venue">Personal Project @ Princeton</div>
+					<div class="project-description">Much of gothic architecture was built before computers existed. However, gothic structures exhibit self-similarity on different scales. Mathematicians and Computer Scientists describe this as "fractal" or adhering to "recursive logic." Using just a few lines of code, I design relatively ornate elements of a cathedral.</div>
+					<div class="project-links"><a href= 'assets/fractal_facade_website.mp4'>Facade Animation</a> <span class="separator">•</span> <a href='assets/fractal_window_final_website.mp4'>Window Animation</a></div>
+				</project>
+				<img class="project-image" src="assets/fractal_window_website_image.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Justice Index, A2J and Partisan State Leanings</h1>
+					
+					
+					<div class="project-description">The <a href="https://ncforaj.org/" target="_blank" rel="noopener noreferrer">National Center for Access to Justice (NCAJ)</a> created the <a href="https://justiceindex.org/" target="_blank" rel="noopener noreferrer">Justice Index</a>, a quantifiable metric to track state civil legal initiatives and hold government accountable, a la <a href="https://evictionlab.org/" target="_blank" rel="noopener noreferrer">Eviction Lab</a>. Which states perform better than other states, and why? How do these metrics correlate with partisan state leanings, income level, and other census information?</div>
+					<div class="project-links"><a href="https://justiceindex.org/2016-findings/findings/#site-navigation" target="_blank" rel="noopener noreferrer">Dashboard</a></div>
+				</project>
+				<img class="project-image" src="assets/jiresearch.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Optimizing EPA Clean Air Act Enforcement</h1>
+					
+					<div class="project-venue">Research advised by Elahesadat Naghib and Robert Vanderbei @ Princeton and Daniel Teitelbaum @ EPA</div>
+					<div class="project-description">Inspectors visit facilities to check Clean Air Act (CAA) Compliance either periodically or at random. Using public air quality data and historical performance, can an algorithm do better?</div>
+					<div class="project-links"><a href="assets/Laufer_Benjamin_EPA_Project.pdf">Paper</a></div>
+				</project>
+				<img class="project-image" src="assets/EPA_map.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Controlling Horse Populations in the Western United States</h1>
+					
+					<div class="project-venue">Research project stemming from coursework, advised by Simon Levin @ Princeton</div>
+					<div class="project-description">Feral horse populations are exploding, and the Bureau of Land Management refrains from culling because of its unpopularity. Instead, they gather large number of horses and keep them in barns. From a population dynamics perspective, we find that the current strategy is inadequate and simulate the impacts of a number of proposed alternatives.</div>
+					<div class="project-links"><a href="assets/EEB324_Modeling_5-22.pdf">Paper</a></div>
+				</project>
+				<img class="project-image" src="assets/horse_project.jpg">
+			</section>
+		
+		<div class="hr-line"></div>
+
+		<section class="project-card">
+				<project>
+					<h1>Statistical Methods for Detecting Magnetic Reconnection Events using NASA Spacecraft Data</h1>
+					
+					<div class="project-venue">Research conducted with Amanda Brown. Advised by Masaaki Yamada @ PPPL, 2016-2017</div>
+					<div class="project-description">During an 8-month research assistantship at <a href="https://www.pppl.gov/" target="_blank" rel="noopener noreferrer">Princeton Plasma Physics Laboratory</a> under Dr. Masaaki Yamada, I implemented a <a href="http://www.issibern.ch/forads/sr-001-08.pdf" target="_blank" rel="noopener noreferrer">minimum variance analysis (MVA)</a> technique to detect <a href="https://mrx.pppl.gov/Physics/physics.html#:~:text=Magnetic%20reconnection%20(henceforth%20called%20%22reconnection,events%20in%20our%20solar%20system." target="_blank" rel="noopener noreferrer">magnetic reconnection</a> events in space. This work calibrated magnetic recordings from the four spacecraft launched by <a /href="https://mms.gsfc.nasa.gov/">NASA's Magnetospheric Multiscale Mission</a>. From the data I identified ~30 candidates as likely reconnection events, which were further analyzed by the lab. Understanding reconnection is a key part of developing nuclear fusion energy here on earth.</div>
+					
+				</project>
+				<img class="project-image" src="assets/PPPL_website.jpg">
+			</section>
+
+		<div class="hr-line"></div>
+
+		<div id="writing" class="section-anchor section-header">
+			<h1>Writing</h1>
+		</div>
+		<div class="publications-container">
+			<div class="publication-item">
+				<div class="publication-authors">Chris Hays, Benjamin Laufer, Solon Barocas, Manish Raghavan</div>
+				<div class="publication-title">"Statistical Guarantees in the Search for Less Discriminatory Algorithms"</div>
+				<div class="publication-venue">Accepted at <i>CS & Law 2026</i>, under review at <i>Management Science</i>, 2025.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2512.23943" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Hamidah Oderinwale, Jon Kleinberg</div>
+				<div class="publication-title">"Anatomy of a Machine Learning Ecosystem: 2 Million Models on Hugging Face"</div>
+				<div class="publication-venue">Revision at <i>Proceedings of National Academy of Sciences (PNAS)</i>, 2025.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2508.06811" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Jon Kleinberg</div>
+				<div class="publication-title">"Measuring Rule-Following in Language Models"</div>
+				<div class="publication-venue"><i>ICML 2025 Workshop on Assessing World Models</i>, 2025.</div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Tori Qiu, Benjamin Laufer, Jon Kleinberg, Hoda Heidari</div>
+				<div class="publication-title">"On the Economic Impacts of AI Openness Regulation: A Game-theoretic model of Performance and Openness Implications"</div>
+				<div class="publication-venue"><i>Advances in Neural Information Processing Systems (NeurIPS)</i>, 2025.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2507.14193" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Hoda Heidari, Jon Kleinberg</div>
+				<div class="publication-title">"The Backfiring Effect of Weak AI Safety Regulation"</div>
+				<div class="publication-venue">Revision at <i>Proceedings of National Academy of Sciences (PNAS)</i>, previously appeared at <i>ACM Conference on Equity and Access in Algorithms, Mechanisms, and Optimization (EAAMO) (non-archival)</i>, 2025.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2503.20848" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Manish Raghavan, Solon Barocas</div>
+				<div class="publication-title">"What Constitutes a Less Discriminatory Algorithm?"</div>
+				<div class="publication-venue"><i>ACM CSLaw '25</i> [<b>presentation</b>], earlier versions appeared at <i>NeurIPS RegML and NeurIPS AFME workshops</i> [<b>oral spotlight</b>], 2024.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2412.18138" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Jon Kleinberg, Hoda Heidari</div>
+				<div class="publication-title">"Fine-Tuning Games: Bargaining and Adaptation for General-Purpose Models"</div>
+				<div class="publication-venue"><i>The Web Conference 2024</i> (WWW) [<b>oral spotlight</b>], 2024.</div>
+				<div class="publication-links"><a href="https://arxiv.org/abs/2308.04399" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Helen Nissenbaum</div>
+				<div class="publication-title">"Algorithmic Displacement of Social Trust"</div>
+				<div class="publication-venue"><i><a href="https://knightcolumbia.org/content/algorithmic-displacement-of-social-trust" target="_blank" rel="noopener noreferrer">Knight Institute</a>, Symposium and Essay Series on Algorithmic Amplification and Society</i>, 2023.</div>
+				<div class="publication-links"><a href="assets/algorithmicdisplacementofsocialtrust.pdf">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Jon Kleinberg, Karen Levy, Helen Nissenbaum</div>
+				<div class="publication-title">"Strategic Evaluation: Subjects, Evaluators, and Society"</div>
+				<div class="publication-venue"><i>ACM Conference on Equity and Access in Algorithms, Mechanisms, and Optimization (<a href="https://dl.acm.org/doi/abs/10.1145/3617694.3623237" target="_blank" rel="noopener noreferrer">EAAMO</a>)</i>, 2023.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2310.03655.pdf" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Thomas Gilbert, Helen Nissenbaum</div>
+				<div class="publication-title">"Optimization's Neglected Normative Commitments"</div>
+				<div class="publication-venue"><i>ACM Conference on Fairness, Accountability, and Transparency (<a href="https://facctconference.org/2023/acceptedpapers.html" target="_blank" rel="noopener noreferrer">FAccT</a>)</i>, 2023.</div>
+				<div class="publication-links"><a href="https://dl.acm.org/doi/10.1145/3593013.3593976" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Manish Raghavan, Solon Barocas</div>
+				<div class="publication-title">"Are computational interventions to advance fair lending robust to different modeling choices about the nature of lending?"</div>
+				<div class="publication-venue"><i><a href="https://www.afciworkshop.org/aft2023" target="_blank" rel="noopener noreferrer">NeurIPS AFT</a></i> workshop, 2023.</div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Emma Pierson, Nikhil Garg</div>
+				<div class="publication-title">"End-to-end Auditing for Decision Pipelines"</div>
+				<div class="publication-venue"><i>ICML Workshop on Responsible Decision Making in Dynamic Environments (<a href="https://responsibledecisionmaking.github.io" target="_blank" rel="noopener noreferrer">RDMDE</a>)</i>, 2022.</div>
+				<div class="publication-links"><a href="https://responsibledecisionmaking.github.io/assets/pdf/papers/28.pdf" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Niko Grupen</div>
+				<div class="publication-title">"Collective Obfuscation and Crowdsourcing"</div>
+				<div class="publication-venue"><i><a href="http://claws.cc.gatech.edu/mis2-truefact-kdd2022.html" target="_blank" rel="noopener noreferrer">KDD MIS2-TrueFact</a> and <a href="https://sites.google.com/nyu.edu/discoml/home?authuser=0" target="_blank" rel="noopener noreferrer">ICML DisCoML</a></i> workshops, 2022.</div>
+				<div class="publication-links"><a href="https://arxiv.org/pdf/2208.06405.pdf" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer, Sameer Jain, A. Feder Cooper, Jon Kleinberg, Hoda Heidari</div>
+				<div class="publication-title">"Four Years of FAccT: A Reflexive, Mixed-Methods Analysis of Research Contributions, Shortcomings, and Future Prospects"</div>
+				<div class="publication-venue"><i>ACM Conference on Fairness, Accountability, and Transparency (<a href="https://facctconference.org/2022/acceptedpapers.html" target="_blank" rel="noopener noreferrer">FAccT</a>)</i>, 2022.</div>
+				<div class="publication-links"><a href="https://dl.acm.org/doi/10.1145/3531146.3533107" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">A. Feder Cooper, Emmanuel Moss, Benjamin Laufer, Helen Nissenbaum</div>
+				<div class="publication-title">"Accountability in an Algorithmic Society"</div>
+				<div class="publication-venue"><i>ACM Conference on Fairness, Accountability, and Transparency (<a href="https://facctconference.org/2022/acceptedpapers.html" target="_blank" rel="noopener noreferrer">FAccT</a>)</i>, 2022.</div>
+				<div class="publication-links"><a href="https://dl.acm.org/doi/abs/10.1145/3531146.3533150" target="_blank" rel="noopener noreferrer">paper</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer</div>
+				<div class="publication-title">"Abandoning Criminal Risk and Recidivism: On Dangerous Goals in ML Scoring-Decision Systems"</div>
+				<div class="publication-venue"><i><a href="https://sites.google.com/view/resistance-ai-neurips-20/accepted-papers-and-media?authuser=0" target="_blank" rel="noopener noreferrer">NeurIPS Resistance AI Workshop</a></i>, 2020.</div>
+				<div class="publication-links"><a href="assets/Abandoning_Criminal_Risk_and_Recidivism camera_ready.pdf">pdf</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer</div>
+				<div class="publication-title">"Compounding Injustice: History and Prediction in Carceral Decision-Making"</div>
+				<div class="publication-venue">Undergraduate Thesis, <i>Princeton</i>, April 2019.</div>
+				<div class="publication-links"><a href="https://arxiv.org/abs/2005.13404" target="_blank" rel="noopener noreferrer">ArXiv</a> | <a href="https://dataspace.princeton.edu/handle/88435/dsp01g445ch009" target="_blank" rel="noopener noreferrer">Princeton Mudd Manuscript Library</a></div>
+			</div>
+
+			<div class="publication-item">
+				<div class="publication-authors">Benjamin Laufer</div>
+				<div class="publication-title">"Data Analytics and Machine Learning for Environmental Protection: Targeting Air Inspections"</div>
+				<div class="publication-venue">Junior Research Paper, <i>Princeton ORFE</i>, January 2018.</div>
+				<div class="publication-links"><a href="assets/Laufer_Benjamin_EPA_Project.pdf">pdf</a></div>
+			</div>
+		</div>
+
+		
+</main>
+<footer> 
 			<h3>:)</h3>
 		</footer>
 
