@@ -355,7 +355,7 @@
 
 		<script>
 
-			  let canvas, ctx, gravity, ball, friction
+			  let canvas, ctx, gravity, ball, friction, airDrag, lastTime
 			  function init () {
 			    canvas = document.getElementById('gameCanvas')
 			    ctx = canvas.getContext('2d')
@@ -363,24 +363,26 @@
 			    canvas.width = 80
 			    canvas.height = 80
 
-			    gravity = 1
-			    friction = 0.99
+			    gravity = 1530
+			    friction = 0.98
+			    airDrag = 0.999
+			    lastTime = 0
 
 			    ball = {
-			      bounce: .99,
+			      bounce: 0.95,
 			      radius: 8,
 			      x: canvas.width / 2,
 			      y: canvas.height / 2,
-			      velX: (Math.random() * 10 + 4) * (Math.floor(Math.random() * 2) || -1),
-			      velY: (Math.random() * 10 + 4) * (Math.floor(Math.random() * 2) || -1)
+			      velX: (Math.random() * 220 + 260) * (Math.floor(Math.random() * 2) || -1),
+			      velY: (Math.random() * 220 + 260) * (Math.floor(Math.random() * 2) || -1)
 			    }
 			    
 			    window.requestAnimationFrame(update)
 			  }
 
 			  function flickBall () {
-			    ball.velX += 10 * (Math.floor(Math.random() * 2) || -1)
-			    ball.velY += 10 * (Math.floor(Math.random() * 2) || -1)
+			    ball.velX += (Math.random() * 400 + 820) * (Math.floor(Math.random() * 2) || -1)
+			    ball.velY += (Math.random() * 400 + 820) * (Math.floor(Math.random() * 2) || -1)
 			  }
 
 			  function draw () {
@@ -396,37 +398,46 @@
 			    ctx.fill()
 			  }
 
-			  function update () {
+			  function update (time) {
 			    window.requestAnimationFrame(update)
+			    if (!lastTime) {
+			      lastTime = time
+			    }
+			    const dt = Math.min((time - lastTime) / 1000, 0.033)
+			    lastTime = time
+
+			    const drag = Math.pow(airDrag, dt * 60)
+			    ball.velX *= drag
+			    ball.velY *= drag
+
+			    ball.velY += gravity * dt
+			    ball.x += ball.velX * dt
+			    ball.y += ball.velY * dt
+
 			    if (ball.y + ball.radius >= canvas.height) {
-			      ball.velY *= -ball.bounce
 			      ball.y = canvas.height - ball.radius
+			      ball.velY *= -ball.bounce
 			      ball.velX *= friction
 			    }
 			    if (ball.y - ball.radius <= 0) {
-			      ball.velY *= -ball.bounce
 			      ball.y = ball.radius
+			      ball.velY *= -ball.bounce
 			      ball.velX *= friction
 			    }
 			    if (ball.x - ball.radius <= 0) {
-			      ball.velX *= -ball.bounce
 			      ball.x = ball.radius
+			      ball.velX *= -ball.bounce
 			    }
 			    if (ball.x + ball.radius >= canvas.width) {
-			      ball.velX *= -ball.bounce
 			      ball.x = canvas.width - ball.radius
+			      ball.velX *= -ball.bounce
 			    }
-			    if (ball.velX < 0.01 && ball.velX > -0.01) {
+			    if (Math.abs(ball.velX) < 8) {
 			      ball.velX = 0
 			    }
-			    if (ball.velY < 0.01 && ball.velY > -0.01) {
+			    if (Math.abs(ball.velY) < 8) {
 			      ball.velY = 0
 			    }
-
-			    ball.velY += gravity
-
-			    ball.x += ball.velX
-			    ball.y += ball.velY
 
 			    draw()
 			  }
@@ -518,7 +529,7 @@
 			<h1>Bio</h1>
 		</div>
 		<div class="home-bio-section">
-			<img src="assets/laufer-photo.jpg" class="home-bio-image" alt="Benjamin Laufer">
+			<img src="assets/laufer-photo.jpg" class="home-bio-image" alt="Benjamin Laufer" decoding="async" loading="eager">
 			<div class="home-bio-content">
 				<h2>
 					Ben Laufer is a PhD candidate in the Bowers School of Computing and Information Science at Cornell Tech. He is advised by <a href="https://www.cs.cornell.edu/home/kleinber/" target="_blank" rel="noopener noreferrer">Jon Kleinberg</a> and <a href="https://nissenbaum.tech.cornell.edu/" target="_blank" rel="noopener noreferrer">Helen Nissenbaum</a> and affiliated with the <a href="https://aipp.cis.cornell.edu/people/" target="_blank" rel="noopener noreferrer">AI, Policy, and Practice Group</a> and the <a href="https://dli.tech.cornell.edu/people" target="_blank" rel="noopener noreferrer">Digital Life Initiative (DLI)</a>. His research studies how data-driven and AI technologies behave, how they interact with people and institutions, and how they should be governed. He draws on tools from network science, game theory, statistics, and ethics, law, and policy to build models and measurements for understanding the social impacts of computing. Before Cornell, he worked as a data scientist at <a href = "https://www.lime.com/" target="_blank" rel="noopener noreferrer">Lime</a>, and he earned his B.S.E. in Operations Research and Financial Engineering from Princeton University.
@@ -592,7 +603,7 @@
 					<a href="https://github.com/bendlaufer/ai-ecosystem" target="_blank" rel="noopener noreferrer">Codebase</a>
 				</div>
 			</project>
-			<img class="project-image" src="assets/250th_largest_subgraph_optimized.gif">
+			<img class="project-image" loading="lazy" decoding="async" src="assets/250th_largest_subgraph_optimized.gif">
 		</section>
 
 		<div class="hr-line"></div>
@@ -611,7 +622,7 @@
 					<a href="https://arxiv.org/pdf/2503.20848" target="_blank" rel="noopener noreferrer">Paper</a>
 				</div>
 			</project>
-			<img class="project-image" src="assets/backfiring-banner.png">
+			<img class="project-image" loading="lazy" decoding="async" src="assets/backfiring-banner.png">
 		</section>
 
 		<div class="hr-line"></div>
@@ -633,7 +644,7 @@
 				</div>
 
 			</project>
-			<img class="project-image" src="assets/openness-banner.png">
+			<img class="project-image" loading="lazy" decoding="async" src="assets/openness-banner.png">
 		</section>
 
 		<div class="hr-line"></div>
@@ -653,7 +664,7 @@
 				</div>
 
 			</project>
-			<img class="project-image" src="assets/responsible-ai-foundations-banner.png">
+			<img class="project-image" loading="lazy" decoding="async" src="assets/responsible-ai-foundations-banner.png">
 		</section>
 
 		<div class="hr-line"></div>
@@ -672,7 +683,7 @@
 					<a href="https://arxiv.org/pdf/2412.18138" target="_blank" rel="noopener noreferrer">Paper</a>
 				</div>
 			</project>
-			<img class="project-image" src="assets/lda-banner.png">
+			<img class="project-image" loading="lazy" decoding="async" src="assets/lda-banner.png">
 		</section>
 
 		<div class="hr-line"></div>
@@ -685,7 +696,7 @@
 					<div class="project-description">There is palpable excitement about AI models that are trained, supposedly for “general purpose.” But in order for these technologies to reach the market, they must first be tweaked and fine-tuned for particular, domain-specific use. In this project, we put forward a model of this adaptation process, highlighting the latent strategic dynamics that arise when one entity builds a general technology that other entities may tune and specialize. Our analysis suggests how some domains will or won’t adapt a general-purpose model. Depending on the cost of investment, a domain might either “abstain,” “contribute,” or “free-ride.”</div>
 					<div class="project-links"><a href="https://arxiv.org/pdf/2308.04399.pdf" target="_blank" rel="noopener noreferrer">Paper</a></div>
 				</project>
-				<img class="project-image" src="assets/fine-tuning-gameplay-3.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/fine-tuning-gameplay-3.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -698,7 +709,7 @@
 					<div class="project-description">A handful of technology companies increasingly control the audiences reached by posts and content on the internet. This reality may create grave problems and leave our society acutely vulnerable. [Image credit: Daniel Herzberg]</div>
 					<div class="project-links"><a href="https://knightcolumbia.org/content/algorithmic-displacement-of-social-trust" target="_blank" rel="noopener noreferrer">Paper</a> <span class="separator">•</span> <a href="https://www.youtube.com/live/hovy4qS0tbE?feature=share&t=19352" target="_blank" rel="noopener noreferrer">Video</a></div>
 				</project>
-				<img class="project-image" src="assets/a3884ir1041_webres.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/a3884ir1041_webres.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -711,7 +722,7 @@
 					<div class="project-description">Optimization is offered as a decision-aid to resolve high-stakes, real-world decisions. In this work, we dissect the normative assumptions and commitments that can be implicit in the use of optimization. We point to a number of neglected problem cases and pitfalls that can and do arise.</div>
 					<div class="project-links"><a href="https://arxiv.org/pdf/2305.17465.pdf" target="_blank" rel="noopener noreferrer">Paper</a> <span class="separator">•</span> <a href="https://youtu.be/GLKhsrLXvdI?t=455" target="_blank" rel="noopener noreferrer">Video</a></div>
 				</project>
-				<img class="project-image" src="assets/Latest-Optimization-Lifecycle-website.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/Latest-Optimization-Lifecycle-website.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -724,7 +735,7 @@
 					<div class="project-description">Every day, cities need to allocate resources and respond to resident needs. They aim to do so efficiently and equitably. Through a partnership with New York City’s Department of Parks and Recreations, we develop methods to test and evaluate whether the city is responding to requests effectively.</div>
 					<div class="project-links"><a href="https://responsibledecisionmaking.github.io/assets/pdf/papers/28.pdf" target="_blank" rel="noopener noreferrer">Workshop paper</a> <span class="separator">•</span> <a href="https://drive.google.com/file/d/1rPWNO5Bohoi3-AsBBuxF_jbo5s2KaqHY/view" target="_blank" rel="noopener noreferrer">Video</a> <span class="separator">•</span> <a href="https://responsibledecisionmaking.github.io/assets/poster/28.pdf" target="_blank" rel="noopener noreferrer">Poster</a></div>
 				</project>
-				<img class="project-image" src="assets/Tree-Pipeline-5-15-2022.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/Tree-Pipeline-5-15-2022.jpg">
 			</section>
 				
 		<div class="hr-line"></div>
@@ -737,7 +748,7 @@
 					<div class="project-description">How can community members in a new scholarly field critically analyze their own research directions, shortcomings, and future prospects? In this work, our team uses reflexive, participatory mixed-methods to understand the borgeoning research topic known as Fairness, Accountability, and Transparency for Socio-technical Systems.</div>
 					<div class="project-links"><a href="https://dl.acm.org/doi/10.1145/3531146.3533107" target="_blank" rel="noopener noreferrer">Paper</a> <span class="separator">•</span> <a href="https://www.youtube.com/watch?v=qXRgORPkC2Y" target="_blank" rel="noopener noreferrer">Video</a></div>
 				</project>
-				<img class="project-image" src="assets/S2ORC-2.png">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/S2ORC-2.png">
 			</section>
 
 		<div class="hr-line"></div>
@@ -750,7 +761,7 @@
 					<div class="project-description">Artificial intelligence and machine learning technologies make it difficult to establish accountability. In a new paper, we discuss why accountability is important, which barriers exist, and what we can do about it.</div>
 					<div class="project-links"><a href="https://dl.acm.org/doi/abs/10.1145/3531146.3533150" target="_blank" rel="noopener noreferrer">Paper</a></div>
 				</project>
-				<img class="project-image" src="assets/accountability_abstract.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/accountability_abstract.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -763,7 +774,7 @@
 					<div class="project-description">High-impact machine learning algorithms, including algorithmic risk-assessments, are trained to predict or achieve some quantifiable metric. Examples include lowering criminal risk scores and recidivism rates. Are these goals the right goals?</div>
 					<div class="project-links"><a href="assets/Abandoning_Criminal_Risk_and_Recidivism camera_ready.pdf">Paper</a> <span class="separator">•</span> <a href="https://sites.google.com/view/resistance-ai-neurips-20/accepted-papers-and-media?authuser=0" target="_blank" rel="noopener noreferrer">Announcement</a> <span class="separator">•</span> <a href="assets/NeurIPS Resistance AI Poster.pdf">Poster</a></div>
 				</project>
-				<img class="project-image" src="assets/abandoning_risk_abstract.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/abandoning_risk_abstract.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -779,7 +790,7 @@
 				1st place winner in Lime's company-wide Hackathon, December 2020.</div>
 					<div class="project-links"><a href='https://www.youtube.com/watch?v=W3BrwJ6tAvU' target="_blank" rel="noopener noreferrer">Demo video</a></div>
 				</project>
-				<img class="project-image" src="assets/helmet_detection.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/helmet_detection.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -791,7 +802,7 @@
 					<div class="project-venue">Project advised by Dounan Tang @ Lime</div>
 					<div class="project-description">Lightweight dockless vehicles are deployed at full battery in the highest-demand locations. Throughout the day, trips bring them to a lower-trip-potential state. When and where should Lime pick up vehicles to complete charging and rebalancing tasks?</div>
 				</project>
-				<img class="project-image" src="assets/autocreation_image1.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/autocreation_image1.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -804,7 +815,7 @@
 					<div class="project-description">Algorithmic risk assessment tools are widely used in the United States today to assist pre-trial and sentencing decisions. Current auditing methods are limited in scope, do not have standardized procedures, and (importantly) ignore feedback effects that arise from repeated decision-making. How do we create accountability?</div>
 					<div class="project-links"><a href="assets/beyond_validity_preprint.pdf">Preprint (2021)</a> <span class="separator">•</span> <a href="assets/Modeling_Feedback_Effects_in_Repeat_Use_Risk_Assessments_for_website.pdf">Workshop Paper (preprint)</a> <span class="separator">•</span> <a href="https://arxiv.org/abs/2011.14075" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
 				</project>
-				<img class="project-image" src="assets/FAccT_image.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/FAccT_image.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -817,7 +828,7 @@
 					<div class="project-description">Lime recently launched their first electric vehicles with swappable batteries, so that people do not have to bring vehicles to power sources in order to charge them. How much closer will this technology bring us to zero-carbon travel?</div>
 					<div class="project-links"><a href="https://www.li.me/second-street/lime-announces-new-paris-swappable-battery-pilot-at-station-f-to-advance-sustainability-of-electric-scooters">Announcement</a> <span class="separator">•</span> <a href="https://www.wired.com/story/lime-scooter-gen3-design/" target="_blank" rel="noopener noreferrer">Design Article</a></div>
 				</project>
-				<img class="project-image" src="assets/swappable_battery.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/swappable_battery.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -830,7 +841,7 @@
 					<div class="project-description">Supporting randomized A/B tests is fun but the work gets repetitve. I created an automated tool that performs relevant statistical hypothesis tests and reports treatment effects for a number of metrics. The tool supports randomized A/B tests on the vehicle, user, juicer, and switchback (region-day) levels. This was a "10x" project - it enabled much more experiment support and allowed local teams to launch their own experiments.</div>
 					
 				</project>
-				<img class="project-image" src="assets/auto_experiment_dashboard.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/auto_experiment_dashboard.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -843,7 +854,7 @@
 					<div class="project-description">To A/B or not to A/B? Lime supports hundreds of randomized A/B tests. It also supports causal impact studies and offline analyses when A/B tests are improper. I helped create briefs on how to design experiments and how to report and interpret experiment results.</div>
 					<div class="project-links"><a href="https://medium.com/lime-eng/experimentation-analysis-at-lime-bee846d62dd" target="_blank" rel="noopener noreferrer">Article</a></div>
 				</project>
-				<img class="project-image" src="assets/Lime_Experiment_image.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/Lime_Experiment_image.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -856,7 +867,7 @@
 					<div class="project-description">People who spend time in Immigration Detention Facilities are becoming infected with COVID-19. ICE reports case and death counts, but also has transferred or released people with the infection. With UCLA's COVID Behind Bars Research Group, I worked to combine scraped ICE counts with transfer and release information, and systematically report these numbers for open-source research.</div>
 					<div class="project-links"><a href="https://law.ucla.edu/academics/centers/criminal-justice-program/ucla-covid-19-behind-bars-data-project" target="_blank" rel="noopener noreferrer">Project Website</a></div>
 				</project>
-				<img class="project-image" src="assets/COVID_behind_bars.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/COVID_behind_bars.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -869,7 +880,7 @@
 					<div class="project-description">When riders finish a ride or employees deploy a fresh scooter, they take a photo of the parking job. Cities need proper vehicle parking so that scooters are not in pedestrians' way. Using our giant photo dataset, we trained and deployed a machine learning model (CNN) to identify improper parking.</div>
 					<div class="project-links"><a href="https://medium.com/lime-eng/using-computer-vision-to-evaluate-scooter-parking-9979a1c3d685" target="_blank" rel="noopener noreferrer">Article</a></div>
 				</project>
-				<img class="project-image" src="assets/parking_compliance_image.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/parking_compliance_image.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -882,7 +893,7 @@
 					<div class="project-description">Most models at Lime use region-wide, 3-week historical averages to estimate a vehicle's revenue for the next day. We can reduce error by training an ML model with a few additional pieces of information (weather, vehicle model, seasonal trend, location, and auto-regressive terms).</div>
 					
 				</project>
-				<img class="project-image" src="assets/demand_forecasting_lime.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/demand_forecasting_lime.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -895,7 +906,7 @@
 					<div class="project-description">Amid widespread BLM protests in 2020, many took to social media for "Blackout Tuesday" - a day where they posted only a <a href="https://www.theguardian.com/us-news/2020/jun/02/blackout-tuesday-dominates-social-media-millions-show-solidarity-george-floyd" target="_blank" rel="noopener noreferrer">black square</a>. This event spurred significant debate not about any underlying political issue but about the squares themselves. A defining feature of the Internet is its self-referentiality. When are Twitter trends about events, and when do they become about the fact of their own trending status? I am getting familiar with the Twitter API using this topic as my guide.</div>
 					
 				</project>
-				<img class="project-image" src="assets/when_twitter_trends_trend_data_visual.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/when_twitter_trends_trend_data_visual.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -914,7 +925,7 @@
 				(3) Departmental Distinction</div>
 					<div class="project-links"><a href="https://arxiv.org/abs/2005.13404" target="_blank" rel="noopener noreferrer">ArXiv</a></div>
 				</project>
-				<img class="project-image" src="assets/Compounding_Injustice_Map.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/Compounding_Injustice_Map.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -927,7 +938,7 @@
 					<div class="project-description">Gelato shaped like a flower. Slime videos. ASMR. How is the Internet changing the way we sense?</div>
 					<div class="project-links"><a href="assets/media-theory-paper.pdf">Paper</a></div>
 				</project>
-				<img class="project-image" src="assets/media_theory.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/media_theory.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -940,7 +951,7 @@
 					<div class="project-description">Much of gothic architecture was built before computers existed. However, gothic structures exhibit self-similarity on different scales. Mathematicians and Computer Scientists describe this as "fractal" or adhering to "recursive logic." Using just a few lines of code, I design relatively ornate elements of a cathedral.</div>
 					<div class="project-links"><a href= 'assets/fractal_facade_website.mp4'>Facade Animation</a> <span class="separator">•</span> <a href='assets/fractal_window_final_website.mp4'>Window Animation</a></div>
 				</project>
-				<img class="project-image" src="assets/fractal_window_website_image.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/fractal_window_website_image.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -953,7 +964,7 @@
 					<div class="project-description">The <a href="https://ncforaj.org/" target="_blank" rel="noopener noreferrer">National Center for Access to Justice (NCAJ)</a> created the <a href="https://justiceindex.org/" target="_blank" rel="noopener noreferrer">Justice Index</a>, a quantifiable metric to track state civil legal initiatives and hold government accountable, a la <a href="https://evictionlab.org/" target="_blank" rel="noopener noreferrer">Eviction Lab</a>. Which states perform better than other states, and why? How do these metrics correlate with partisan state leanings, income level, and other census information?</div>
 					<div class="project-links"><a href="https://justiceindex.org/2016-findings/findings/#site-navigation" target="_blank" rel="noopener noreferrer">Dashboard</a></div>
 				</project>
-				<img class="project-image" src="assets/jiresearch.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/jiresearch.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -966,7 +977,7 @@
 					<div class="project-description">Inspectors visit facilities to check Clean Air Act (CAA) Compliance either periodically or at random. Using public air quality data and historical performance, can an algorithm do better?</div>
 					<div class="project-links"><a href="assets/Laufer_Benjamin_EPA_Project.pdf">Paper</a></div>
 				</project>
-				<img class="project-image" src="assets/EPA_map.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/EPA_map.jpg">
 			</section>
 
 		<div class="hr-line"></div>
@@ -979,7 +990,7 @@
 					<div class="project-description">Feral horse populations are exploding, and the Bureau of Land Management refrains from culling because of its unpopularity. Instead, they gather large number of horses and keep them in barns. From a population dynamics perspective, we find that the current strategy is inadequate and simulate the impacts of a number of proposed alternatives.</div>
 					<div class="project-links"><a href="assets/EEB324_Modeling_5-22.pdf">Paper</a></div>
 				</project>
-				<img class="project-image" src="assets/horse_project.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/horse_project.jpg">
 			</section>
 		
 		<div class="hr-line"></div>
@@ -992,7 +1003,7 @@
 					<div class="project-description">During an 8-month research assistantship at <a href="https://www.pppl.gov/" target="_blank" rel="noopener noreferrer">Princeton Plasma Physics Laboratory</a> under Dr. Masaaki Yamada, I implemented a <a href="http://www.issibern.ch/forads/sr-001-08.pdf" target="_blank" rel="noopener noreferrer">minimum variance analysis (MVA)</a> technique to detect <a href="https://mrx.pppl.gov/Physics/physics.html#:~:text=Magnetic%20reconnection%20(henceforth%20called%20%22reconnection,events%20in%20our%20solar%20system." target="_blank" rel="noopener noreferrer">magnetic reconnection</a> events in space. This work calibrated magnetic recordings from the four spacecraft launched by <a /href="https://mms.gsfc.nasa.gov/">NASA's Magnetospheric Multiscale Mission</a>. From the data I identified ~30 candidates as likely reconnection events, which were further analyzed by the lab. Understanding reconnection is a key part of developing nuclear fusion energy here on earth.</div>
 					
 				</project>
-				<img class="project-image" src="assets/PPPL_website.jpg">
+				<img class="project-image" loading="lazy" decoding="async" src="assets/PPPL_website.jpg">
 			</section>
 
 		<div class="hr-line"></div>
